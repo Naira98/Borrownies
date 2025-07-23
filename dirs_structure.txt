@@ -1,0 +1,71 @@
+Borrownies
+│
+├── backend/
+│   ├── main.py             # Main FastAPI application entry point; includes all API routers.
+│   ├── db/                 # Database-related modules.
+│   │   ├── __init__.py     # Makes 'db' a Python package.
+│   │   ├── database.py     # Handles PostgreSQL connection, SQLAlchemy engine, and session maker.
+│   │   └── base.py         # Contains the SQLAlchemy declarative base and imports all ORM models for discovery.
+│   │
+│   ├── core/               # Contains core utilities and shared components.
+│   │   ├── auth.py         # Authentication logic (e.g., JWT token handling, password hashing/verification).
+│   │   └── dependencies.py # Common FastAPI dependencies (e.g., ⁠ get_db ⁠ session, ⁠ get_current_user ⁠).
+│   │
+│   ├── api/                # FastAPI routers, defining API endpoints for each domain.
+│   │   ├── _init_.py     # Makes 'api' a Python package; can be used to import all routers.
+│   │   ├── users.py        # Defines API routes for user-related operations (CRUD for users).
+│   │   ├── books.py        # Defines API routes for book-related operations (CRUD for books).
+│   │   ├── authors.py      # Defines API routes for author-related operations (CRUD for authors).
+│   │   └── borrow_orders.py # Defines API routes for borrow order operations (CRUD for borrow orders).
+│   │
+│   ├── models/             # SQLAlchemy ORM models, defining database table structures.
+│   │   ├── _init_.py     # Makes 'models' a Python package; imports all individual models for discovery.
+│   │   ├── user.py         # Defines the ⁠ User ⁠ ORM model (users table).
+│   │   ├── book.py         # Defines the ⁠ Book ⁠ ORM model (books table), including M2M relationship.
+│   │   ├── author.py       # Defines the ⁠ Author ⁠ ORM model (authors table) and the M2M association table.
+│   │   └── borrow_order.py # Defines the ⁠ BorrowOrder ⁠ ORM model (borrow_orders table).
+│   │
+│   ├── schemas/            # Pydantic models for data validation and serialization/deserialization.
+│   │   ├── _init_.py     # Makes 'schemas' a Python package; imports all individual schemas for easy access.
+│   │   ├── user.py         # Defines Pydantic schemas for User (e.g., ⁠ UserCreate ⁠, ⁠ UserResponse ⁠).
+│   │   ├── book.py         # Defines Pydantic schemas for Book (e.g., ⁠ BookCreate ⁠, ⁠ BookResponse ⁠), including nested authors.
+│   │   ├── author.py       # Defines Pydantic schemas for Author (e.g., ⁠ AuthorCreate ⁠, ⁠ AuthorResponse ⁠).
+│   │   └── borrow_order.py # Defines Pydantic schemas for BorrowOrder (e.g., ⁠ BorrowOrderCreate ⁠, ⁠ BorrowOrderResponse ⁠).
+│   │
+│   ├── crud/               # Contains functions for Create, Read, Update, Delete (CRUD) operations.
+│   │   ├── _init_.py     # Makes 'crud' a Python package; can import all CRUD functions.
+│   │   ├── user.py         # Implements CRUD functions for the User model.
+│   │   ├── book.py         # Implements CRUD functions for the Book model.
+│   │   ├── author.py       # Implements CRUD functions for the Author model.
+│   │   └── borrow_order.py # Implements CRUD functions for the BorrowOrder model.
+│   │
+│   ├── .env                # Environment variables for backend (e.g., DATABASE_URL).
+│   └── requirements.txt    # Python dependencies for the backend.
+│
+├── frontend/               # Frontend application (Vite + React + TypeScript).
+│   ├── public/             # Static assets that are not processed by the build tool (e.g., favicon).
+│   ├── src/                # Source code for the frontend application.
+│   │   ├── assets/         # Static assets that are imported into the code (e.g., images, fonts).
+│   │   ├── components/     # Reusable UI components (e.g., buttons, cards, forms).
+│   │   │   ├── UserList.tsx
+│   │   │   └── BookCard.tsx
+│   │   ├── pages/          # Page-specific components or views.
+│   │   │   ├── HomePage.tsx
+│   │   │   ├── BooksPage.tsx
+│   │   │   ├── UsersPage.tsx
+│   │   │   └── BorrowOrdersPage.tsx
+│   │   ├── services/       # API client for interacting with the backend.
+│   │   │   ├── api.ts
+│   │   │   ├── userService.ts
+│   │   │   └── bookService.ts
+│   │   ├── App.tsx         # Main application component (React App).
+│   │   └── main.tsx        # Entry point for the frontend application.
+│   ├── index.html          # Main HTML file for the single-page application.
+│   ├── package.json        # Frontend dependencies (e.g., React, Axios, Tailwind CSS).
+│   ├── vite.config.ts      # Vite configuration file.
+│   ├── tsconfig.json       # TypeScript configuration for the app.
+│   ├── tsconfig.node.json  # TypeScript configuration for Vite config and other Node.js scripts.
+│   ├── postcss.config.js   # PostCSS configuration, often used with Tailwind CSS.
+│   └── tailwind.config.js  # Tailwind CSS configuration file.
+│
+└── README.md               # Project documentation and setup instructions.

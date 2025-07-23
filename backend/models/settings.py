@@ -1,15 +1,17 @@
-from db.base import Base
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import Numeric
-
 from decimal import Decimal
 
-class Settings (Base):
-    __tablename__ = "settings"
+from db.base import Base
+from sqlalchemy import CheckConstraint, Numeric
+from sqlalchemy.orm import Mapped, mapped_column
 
-    id: Mapped[int] = mapped_column(default=1, primary_key=True,sa_check_constraint='id = 1')
-    deposit_perc: Mapped[Decimal] = mapped_column(Numeric(4,2), nullable=False)
-    borrow_perc: Mapped[Decimal] = mapped_column(Numeric(4,2), nullable=False)
-    delay_perc: Mapped[Decimal] = mapped_column(Numeric(4,2), nullable=False)
-    delivery_fees: Mapped[Decimal] = mapped_column(Numeric(4,2), nullable=False)
+
+class Settings(Base):
+    __tablename__ = "settings"
+    __table_args__ = (CheckConstraint("id = 1", name="settings_singleton"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True, default=1)
+    deposit_perc: Mapped[Decimal] = mapped_column(Numeric(4, 2))
+    borrow_perc: Mapped[Decimal] = mapped_column(Numeric(4, 2))
+    delay_perc: Mapped[Decimal] = mapped_column(Numeric(4, 2))
+    delivery_fees: Mapped[Decimal] = mapped_column(Numeric(4, 2))
     max_num_of_borrow_books: Mapped[int]

@@ -1,25 +1,79 @@
+# =================================================================
+# General
+# =================================================================
+
+# Environment variables
+# Do not commit .env files as they may contain sensitive data.
+# Add a .env.example file to your repo to show required variables.
 .env
+.env.*
+!.env.example
+
+# OS-generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# =================================================================
+# Editor-specific
+# =================================================================
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# =================================================================
+# Python / FastAPI (backend)
+# =================================================================
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+*.egg-info/
+
+# Test & coverage reports
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# =================================================================
+# Node.js / Vite / React (frontend)
+# =================================================================
+
+# Dependencies
+node_modules/
+
+# Build output & Caches
+dist/
+dist-ssr/
+.npm/
+.eslintcache
+.vite/
+*.local
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
