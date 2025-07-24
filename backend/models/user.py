@@ -32,7 +32,7 @@ class User(Base):
     phone_number: Mapped[str] = mapped_column(String(20), unique=True, index=True)
     password: Mapped[str]
     wallet: Mapped[Decimal] = mapped_column(Numeric(10, 2), default=0.0)
-    status: Mapped[UserStatus] = mapped_column(default=UserStatus.ACTIVATED.value)
+    status: Mapped[UserStatus] = mapped_column(default=UserStatus.DEACTIVATED.value)
     role: Mapped[UserRole] = mapped_column(default=UserRole.CLIENT.value)
     interests: Mapped[str] = mapped_column(String(255), nullable=True)
     created_date: Mapped[datetime] = mapped_column(

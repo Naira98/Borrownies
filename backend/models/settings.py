@@ -15,3 +15,12 @@ class Settings(Base):
     delay_perc: Mapped[Decimal] = mapped_column(Numeric(4, 2))
     delivery_fees: Mapped[Decimal] = mapped_column(Numeric(4, 2))
     max_num_of_borrow_books: Mapped[int]
+
+
+class PromoCode(Base):
+    __tablename__ = "promo_codes"
+
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    code: Mapped[str]
+    discount_perc: Mapped[Decimal] = mapped_column(Numeric(4, 2))
+    is_active: Mapped[bool] = mapped_column(default=True)
