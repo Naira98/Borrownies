@@ -54,4 +54,4 @@ class BookDetails(Base):
     book_id: Mapped[int] = mapped_column(ForeignKey("books.id"), index=True)
 
     book: Mapped[Book] = relationship(back_populates="book_details")
-    cart_items: Mapped[list["Cart"]] = relationship(back_populates="book_details")  # type: ignore  # noqa: F821
+    cart_items: Mapped[list[Cart]] = relationship(back_populates="book_details")  # type: ignore  # noqa: F821

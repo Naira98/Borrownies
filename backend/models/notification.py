@@ -44,7 +44,7 @@ class Notification(Base):
         ForeignKey("promo_codes.id"), nullable=True
     )
 
-    user: Mapped["User"] = relationship(back_populates="notifications")  # type: ignore # noqa: F821
-    order: Mapped["Order" | None] = relationship()  # type: ignore # noqa: F821
-    return_order: Mapped["ReturnOrder" | None] = relationship()  # type: ignore # noqa: F821
-    promo_code: Mapped["PromoCode" | None] = relationship()  # type: ignore # noqa: F821
+    user: Mapped[User] = relationship(back_populates="notifications")  # type: ignore # noqa: F821
+    order: Mapped[Order | None] = relationship()  # type: ignore # noqa: F821
+    return_order: Mapped[ReturnOrder | None] = relationship()  # type: ignore # noqa: F821
+    promo_code: Mapped[PromoCode | None] = relationship()  # type: ignore # noqa: F821

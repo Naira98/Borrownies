@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from db.base import Base
 from db.database import async_engine
 from fastapi import FastAPI
-from models import book, cart, settings, user  # noqa: F401
+from models import book, cart, settings, user, order, notification  # noqa: F401
 
 
 @asynccontextmanager

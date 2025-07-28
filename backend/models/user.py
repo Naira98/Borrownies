@@ -1,3 +1,4 @@
+from __future__ import annotations
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
@@ -39,7 +40,10 @@ class User(Base):
         DateTime(timezone=True), server_default=func.now()
     )
 
-    cart: Mapped[list["Cart"]] = relationship(back_populates="user")  # type: ignore  # noqa: F821
-    orders: Mapped[list["Order"]] = relationship(back_populates="user")  # type: ignore  # noqa: F821
-    return_orders: Mapped[list["ReturnOrder"]] = relationship(back_populates="user")  # type: ignore  # noqa: F821
-    courier_orders: Mapped[list["ReturnOrder"]] = relationship(back_populates="courier")  # type: ignore # noqa: F821
+    cart: Mapped[list[Cart]] = relationship(back_populates="user")  # type: ignore  # noqa: F821
+    orders: Mapped[list[Order]] = relationship(back_populates="user")  # type: ignore  # noqa: F821
+    return_orders: Mapped[list[ReturnOrder]] = relationship(back_populates="user")  # type: ignore  # noqa: F821
+    courier_orders: Mapped[list[ReturnOrder]] = relationship(back_populates="courier")  # type: ignore # noqa: F821
+    promo_code_accounts: Mapped[list[PromoCodeAccount]] = relationship(  # type: ignore # noqa: F821
+        back_populates="user"
+    )

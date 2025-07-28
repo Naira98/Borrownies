@@ -1,3 +1,4 @@
+from __future__ import annotations
 from db.base import Base
 from sqlalchemy import ForeignKey, Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -12,5 +13,5 @@ class Cart(Base):
     )
     quantity: Mapped[int] = mapped_column(Integer, default=1)
 
-    user: Mapped["User"] = relationship(back_populates="cart")  # type: ignore  # noqa: F821
-    book_details: Mapped["BookDetails"] = relationship(back_populates="cart_items")  # type: ignore  # noqa: F821
+    user: Mapped[User] = relationship(back_populates="cart")  # type: ignore  # noqa: F821
+    book_details: Mapped[BookDetails] = relationship(back_populates="cart_items")  # type: ignore  # noqa: F821
