@@ -81,7 +81,6 @@ const Login= () => {
           />
         </div>
 
-      
         <div className="p-8 md:p-12 flex flex-col justify-center overflow-y-auto">
           <h2 className="text-3xl font-bold text-primary mb-6 text-center">Login to Your Account</h2>
           <Form
