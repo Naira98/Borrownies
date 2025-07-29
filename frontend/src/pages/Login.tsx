@@ -123,7 +123,7 @@ const Login= () => {
                         className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                        {/*showPassword ? <EyeOff size={18} /> : <Eye size={18} />*/}
+
                       </div>
                       {meta.error && meta.touched && (
                         <p className="text-red-500 text-xs mt-1">{meta.error}</p>
@@ -173,6 +173,7 @@ const Login= () => {
             )}
           />
 
+
           {/* Social Login Options */}
           <div className="mt-8 text-center">
             <p className="text-gray-600 text-sm mb-4">Or login with</p>
@@ -189,6 +190,7 @@ const Login= () => {
               
             </div>
           </div>
+
 
           <p className="text-center text-primary mt-6 text-sm">
             Don't have an account?{' '}

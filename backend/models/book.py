@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from decimal import Decimal
 from enum import Enum
 
@@ -8,8 +9,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
 class BookStatus(Enum):
-    BORROW = "borrow"
-    PURCHASE = "purchase"
+    borrow = "borrow"
+    purchase = "purchase"
 
 
 class Author(Base):
@@ -36,9 +37,11 @@ class Book(Base):
     description: Mapped[str] = mapped_column(String(1000), nullable=True)
     cover_img: Mapped[str] = mapped_column(String, nullable=True)
 
+    # Foreign Keys
     category_id: Mapped[int] = mapped_column(ForeignKey("categories.id"))
     author_id: Mapped[int] = mapped_column(ForeignKey("authors.id"))
 
+    # Relationships
     category: Mapped[Category] = relationship(back_populates="books")
     author: Mapped[Author] = relationship(back_populates="books")
     book_details: Mapped[list[BookDetails]] = relationship(back_populates="book")
@@ -51,7 +54,15 @@ class BookDetails(Base):
     available_stock: Mapped[int] = mapped_column(Integer)
     status: Mapped[BookStatus]
 
+    # Foreign Keys
     book_id: Mapped[int] = mapped_column(ForeignKey("books.id"), index=True)
 
+    # Relationships
     book: Mapped[Book] = relationship(back_populates="book_details")
     cart_items: Mapped[list[Cart]] = relationship(back_populates="book_details")  # type: ignore  # noqa: F821
+    borrow_order_books_details: Mapped[list[BorrowOrderBook]] = relationship(  # type: ignore  # noqa: F821
+        back_populates="book_details"
+    )
+    purchase_order_books_details: Mapped[list[PurchaseOrderBook]] = relationship(  # type: ignore  # noqa: F821
+        back_populates="book_details"
+    )
