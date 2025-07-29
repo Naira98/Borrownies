@@ -4,6 +4,8 @@ from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from routers.auth import auth_router
 
+FRONT_URL = "http://localhost:5173"
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -18,7 +20,7 @@ app = FastAPI(title="Book Nook API", version="1.0.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[FRONT_URL],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

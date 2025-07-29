@@ -10,16 +10,16 @@ from sqlalchemy.sql import func
 
 
 class NotificationStatus(Enum):
-    READ = "read"
-    UNREAD = "unread"
+    read = "read"
+    unread = "unread"
 
 
 class NotificationType(Enum):
-    ORDER_STATUS_UPDATE = "order_status_update"
-    RETURN_ORDER_STATUS_UPDATE = "return_order_status_update"
-    RETURN_REMINDER = "return_reminder"
-    NEW_PROMO_CODE = "new_promo_code"
-    WALLET_UPDATED = "wallet_updated"
+    order_status_update = "order_status_update"
+    return_order_status_update = "return_order_status_update"
+    return_reminder = "return_reminder"
+    new_promo_code = "new_promo_code"
+    wallet_updated = "wallet_updated"
 
 
 class Notification(Base):
@@ -29,13 +29,13 @@ class Notification(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     type: Mapped[NotificationType]
     status: Mapped[NotificationStatus] = mapped_column(
-        default=NotificationStatus.UNREAD.value
+        default=NotificationStatus.unread.value
     )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
 
-    # Related entities for context
+    # Foreign Keys
     order_id: Mapped[int | None] = mapped_column(ForeignKey("orders.id"), nullable=True)
     return_order_id: Mapped[int | None] = mapped_column(
         ForeignKey("return_orders.id"), nullable=True
@@ -44,6 +44,7 @@ class Notification(Base):
         ForeignKey("promo_codes.id"), nullable=True
     )
 
+    # Relationships
     user: Mapped[User] = relationship(back_populates="notifications")  # type: ignore # noqa: F821
     order: Mapped[Order | None] = relationship()  # type: ignore # noqa: F821
     return_order: Mapped[ReturnOrder | None] = relationship()  # type: ignore # noqa: F821
