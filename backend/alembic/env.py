@@ -1,13 +1,14 @@
+import os
+import sys
 from logging.config import fileConfig
-from dotenv import load_dotenv
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-
 from alembic import context
 from db.base import Base
 from db.database import SQLALCHEMY_DATABASE_URL
-from models import *  # noqa: F403, F401
+from models import book, cart, notification, order, settings, user  # noqa: F401
 
+sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__), "..")))
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -25,17 +26,7 @@ db_url = SQLALCHEMY_DATABASE_URL.replace("postgresql+asyncpg", "postgresql")
 
 config.set_main_option("sqlalchemy.url", db_url)
 
-
-# add your model's MetaData object here
-# for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
 target_metadata = Base.metadata
-
-# other values from the config, defined by the needs of env.py,
-# can be acquired:
-# my_important_option = config.get_main_option("my_important_option")
-# ... etc.
 
 
 def run_migrations_offline() -> None:
