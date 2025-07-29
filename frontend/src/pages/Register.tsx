@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Eye, EyeOff } from 'lucide-react';
+//import { Eye, EyeOff } from 'lucide-react';
 import { Form, Field } from 'react-final-form';
 
 interface FormData {
@@ -187,7 +187,6 @@ const Register= () => {
                             className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
                             onClick={() => fieldName === 'password' ? setShowPassword(!showPassword) : setShowConfirmPassword(!showConfirmPassword)} 
                           >
-                            {(fieldName === 'password' && showPassword) || (fieldName === 'confirmPassword' && showConfirmPassword) ? <EyeOff size={18} /> : <Eye size={18} />}
                           </div>
                           {meta.error && meta.touched && (
                             <p className="text-red-500 text-xs mt-1">{meta.error}</p>
