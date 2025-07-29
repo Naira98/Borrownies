@@ -1,5 +1,4 @@
 import os
-import sys
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
@@ -7,10 +6,8 @@ from jose import jwt
 from passlib.context import CryptContext
 from schemas.auth import TokenData
 
-sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__), "..")))
-
 # JWT Token
-SECRET_KEY: str = "your-super-secret-key-that-you-should-change"
+JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 ALGORITHM: str = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
@@ -29,7 +26,10 @@ def create_access_token(
 
     to_encode["exp"] = expire
 
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    if JWT_SECRET_KEY is None:
+        raise ValueError("JWT_SECRET_KEY is not set")
+
+    encoded_jwt = jwt.encode(to_encode, JWT_SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
 

@@ -1,10 +1,17 @@
+import os
+import sys
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, APIRouter
+from dotenv import load_dotenv
+from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers.auth import auth_router
 
 FRONT_URL = "http://localhost:5173"
+
+sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__))))
+
+load_dotenv()
 
 
 @asynccontextmanager
