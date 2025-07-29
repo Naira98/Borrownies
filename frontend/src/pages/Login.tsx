@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Form, Field } from 'react-final-form';
 
 
+
 interface LoginFormValues {
   email: string;
   password: string;
@@ -122,6 +123,7 @@ const Login= () => {
                         className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
                         onClick={() => setShowPassword(!showPassword)}
                       >
+
                       </div>
                       {meta.error && meta.touched && (
                         <p className="text-red-500 text-xs mt-1">{meta.error}</p>
@@ -170,6 +172,25 @@ const Login= () => {
               </form>
             )}
           />
+
+
+          {/* Social Login Options */}
+          <div className="mt-8 text-center">
+            <p className="text-gray-600 text-sm mb-4">Or login with</p>
+            <div className="flex justify-center space-x-4">
+              <button className="flex items-center justify-center p-3 border border-gray-300 rounded-full shadow-sm hover:shadow-md transition duration-200 focus:outline-none focus:ring-2 focus:ring-primary">
+               {/*<FaGoogle size={20} className="text-green-500" />*/} 
+              </button>
+              <button className="flex items-center justify-center p-3 border border-gray-300 rounded-full shadow-sm hover:shadow-md transition duration-200 focus:outline-none focus:ring-2 focus:ring-primary">
+                 {/*<FaFacebook size={20} className="text-blue-600" />*/}
+              </button>
+              <button className="flex items-center justify-center p-3 border border-gray-300 rounded-full shadow-sm hover:shadow-md transition duration-200 focus:outline-none focus:ring-2 focus:ring-primary">
+                {/** <FaGithub size={20} className="text-gray-800" />*/}
+              </button>
+              
+            </div>
+          </div>
+
 
           <p className="text-center text-primary mt-6 text-sm">
             Don't have an account?{' '}
