@@ -1,7 +1,7 @@
 from __future__ import annotations
 from decimal import Decimal
 from db.base import Base
-from sqlalchemy import CheckConstraint, Numeric, ForeignKey
+from sqlalchemy import CheckConstraint, Numeric
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
@@ -31,15 +31,3 @@ class PromoCode(Base):
     orders_books: Mapped[list[BorrowOrderBook]] = relationship(  # type: ignore  # noqa: F821
         back_populates="promo_code"
     )
-
-
-class PromoCodeAccount(Base):
-    __tablename__ = "promo_code_accounts"
-
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), primary_key=True)
-    promo_code_id: Mapped[int] = mapped_column(
-        ForeignKey("promo_codes.id"), primary_key=True
-    )
-
-    user: Mapped[User] = relationship(back_populates="promo_code_accounts")  # type: ignore  # noqa: F821
-    promo_code: Mapped[PromoCode] = relationship(back_populates="promo_code_accounts")  # type: ignore)

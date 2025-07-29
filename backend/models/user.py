@@ -35,7 +35,7 @@ class User(Base):
     wallet: Mapped[Decimal] = mapped_column(Numeric(10, 2), default=0.0)
     status: Mapped[UserStatus] = mapped_column(default=UserStatus.DEACTIVATED.value)
     role: Mapped[UserRole] = mapped_column(default=UserRole.CLIENT.value)
-    interests: Mapped[str] = mapped_column(String(255), nullable=True)
+    interests: Mapped[str | None] = mapped_column(String(255), nullable=True)
     created_date: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
@@ -47,3 +47,6 @@ class User(Base):
     promo_code_accounts: Mapped[list[PromoCodeAccount]] = relationship(  # type: ignore # noqa: F821
         back_populates="user"
     )
+    borrow_order_books: Mapped[list[BorrowOrderBook]] = relationship(back_populates="user")  # type: ignore # noqa: F821
+    purchase_order_books: Mapped[list[PurchaseOrderBook]] = relationship(back_populates="user")  # type: ignore # noqa: F821
+
