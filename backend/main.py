@@ -1,10 +1,7 @@
 from contextlib import asynccontextmanager
 
-from db.base import Base
-from db.database import async_engine
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
-from models import book, cart, notification, order, settings, user  # noqa: F401
 from routers.auth import auth_router
 
 FRONT_URL = "http://localhost:5173"
@@ -12,10 +9,11 @@ FRONT_URL = "http://localhost:5173"
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    async with async_engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-    print("Database tables created/checked.")
+    # Logic here will run before the application starts receiving requests.
+    print("Application startup...")
     yield
+    # Logic here will run after the application finishes handling requests.
+    print("Application shutdown.")
 
 
 app = FastAPI(title="Book Nook API", version="1.0.0", lifespan=lifespan)
