@@ -1,5 +1,7 @@
 from __future__ import annotations
+
 from decimal import Decimal
+
 from db.base import Base
 from sqlalchemy import CheckConstraint, Numeric
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -25,9 +27,8 @@ class PromoCode(Base):
     discount_perc: Mapped[Decimal] = mapped_column(Numeric(4, 2))
     is_active: Mapped[bool] = mapped_column(default=True)
 
-    promo_code_accounts: Mapped[list[PromoCodeAccount]] = relationship(  # type: ignore  # noqa: F821
-        back_populates="promo_code"
-    )
-    orders_books: Mapped[list[BorrowOrderBook]] = relationship(  # type: ignore  # noqa: F821
+    # Relationships
+    orders: Mapped[list[Order]] = relationship(back_populates="promo_code")  # type: ignore # noqa: F821
+    orders_books: Mapped[list[Order]] = relationship(  # type: ignore  # noqa: F821
         back_populates="promo_code"
     )
