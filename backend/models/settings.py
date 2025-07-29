@@ -29,6 +29,3 @@ class PromoCode(Base):
 
     # Relationships
     orders: Mapped[list[Order]] = relationship(back_populates="promo_code")  # type: ignore # noqa: F821
-    orders_books: Mapped[list[Order]] = relationship(  # type: ignore  # noqa: F821
-        back_populates="promo_code"
-    )
