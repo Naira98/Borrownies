@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import { Form, Field } from 'react-final-form';
@@ -12,11 +12,10 @@ interface LoginFormValues {
   role: string;
 }
 
-const Login: React.FC = () => {
+const Login= () => {
   const [showPassword, setShowPassword] = useState(false);
   const [notification, setNotification] = useState(false);
 
-  // New image URL for the Login page
   const imageUrl = "https://img.freepik.com/premium-photo/hand-drawn-flat-design-book-club-illustration_978521-30357.jpg";
 
   const rolesList = ['Manager', 'Client', 'Employee', 'Courier'];
@@ -46,9 +45,6 @@ const Login: React.FC = () => {
     setNotification(true);
     setTimeout(() => {
       setNotification(false);
-      // In a real application, you would handle authentication here
-      // and redirect to a dashboard based on the role.
-      // For now, we just log the data and show a success notification.
     }, 3000);
   };
 
@@ -71,7 +67,6 @@ const Login: React.FC = () => {
       )}
 
       <div className="bg-white shadow-xl rounded-xl w-full max-w-[1400px] h-[calc(100vh-4rem)] grid grid-cols-1 md:grid-cols-2 overflow-hidden">
-        {/* Left Section - Image and Creative Text */}
         <div className="relative p-8 flex flex-col justify-center bg-gray-50 bg-[url('https://www.transparenttextures.com/patterns/clean-gray-paper.png')] bg-cover bg-no-repeat bg-center">
           <div className="mb-4">
             <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-1">Step into Your Next Story</h1>
@@ -86,7 +81,6 @@ const Login: React.FC = () => {
           />
         </div>
 
-        {/* Right Section - Login Form */}
         <div className="p-8 md:p-12 flex flex-col justify-center overflow-y-auto">
           <h2 className="text-3xl font-bold text-primary mb-6 text-center">Login to Your Account</h2>
           <Form

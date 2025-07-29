@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import { Form, Field } from 'react-final-form';
@@ -14,7 +14,7 @@ interface FormData {
   interests: string;
 }
 
-const Register: React.FC = () => {
+const Register= () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
   const [notification, setNotification] = useState(false);
