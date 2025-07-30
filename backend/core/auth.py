@@ -1,15 +1,10 @@
-import os
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from jose import jwt
 from passlib.context import CryptContext
 from schemas.auth import TokenData
-
-# JWT Token
-JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
-ALGORITHM: str = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+from settings import settings
 
 
 def create_access_token(
@@ -21,15 +16,17 @@ def create_access_token(
         expire = datetime.now(timezone.utc) + expires_delta
     else:
         expire = datetime.now(timezone.utc) + timedelta(
-            minutes=ACCESS_TOKEN_EXPIRE_MINUTES
+            minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
         )
 
     to_encode["exp"] = expire
 
-    if JWT_SECRET_KEY is None:
+    if settings.JWT_SECRET_KEY is None:
         raise ValueError("JWT_SECRET_KEY is not set")
 
-    encoded_jwt = jwt.encode(to_encode, JWT_SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(
+        to_encode, settings.JWT_SECRET_KEY, algorithm=settings.ALGORITHM
+    )
     return encoded_jwt
 
 
@@ -43,3 +40,16 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
+
+
+def create_reset_password_token(email: str):
+    if settings.FORGET_PWD_SECRET_KEY is None:
+        raise ValueError("FORGET_PWD_SECRET_KEY is not set")
+
+    data = {
+        "sub": email,
+        "exp": datetime.now(timezone.utc)
+        + timedelta(minutes=settings.FORGET_PWD_TOKEN_EXPIRE_MINUTES),
+    }
+    token = jwt.encode(data, settings.FORGET_PWD_SECRET_KEY, settings.ALGORITHM)
+    return token
