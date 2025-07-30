@@ -1,6 +1,3 @@
-import os
-import sys
-
 from core.auth import create_access_token, verify_password
 from db.database import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -11,12 +8,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 # from core.auth import get_password_hash
 # from models.user import UserRole
 
-sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__), "..")))
-
 
 auth_router = APIRouter(
-    prefix="/users",
-    tags=["Users"],
+    prefix="/auth",
+    tags=["Auth"],
 )
 
 
@@ -27,12 +22,6 @@ async def register():
 
 @auth_router.post("/login", response_model=LoginResponse)
 async def login(user_login: LoginRequest, db: AsyncSession = Depends(get_db)):
-    CREDENTIALS_EXCEPTION = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Incorrect email or password",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
-
     # """ GENERATE DUMMY USER DATA FOR TESTING PURPOSE """
     # dummy_user = User(
     #     **{
@@ -55,16 +44,20 @@ async def login(user_login: LoginRequest, db: AsyncSession = Depends(get_db)):
     user = result.scalars().first()
 
     if not user or not verify_password(user_login.password, user.password):
-        raise CREDENTIALS_EXCEPTION
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect email or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
-    if user.status.value != UserStatus.activated.value:
+    if user.status.value == UserStatus.deactivated.value:
         raise HTTPException(status_code=400, detail="User is not activated")
+
+    elif user.status.value == UserStatus.blocked.value:
+        raise HTTPException(status_code=400, detail="User is blocked")
 
     access_token = create_access_token(TokenData(id=user.id, role=user.role.value))
 
     return LoginResponse(access_token=access_token, user=user)
 
 
-# @auth_router.post('/logout'):
-#     async def logout():
-#         return {"message": "Logout endpoint"}
