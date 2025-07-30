@@ -42,3 +42,14 @@ class TokenData(BaseModel):
 
 class LoginResponse(Token):
     user: UserResponse
+
+class RegisterRequest(BaseModel):
+    first_name: str
+    last_name: str
+    email: EmailStr
+    national_id: str
+    phone_number: str
+    password: str
+    interests: str | None = None
+
+    model_config = ConfigDict(from_attributes=True, use_enum_values=True)

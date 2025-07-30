@@ -5,7 +5,7 @@ from core.auth import create_access_token, verify_password
 from db.database import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
 from models.user import User, UserStatus
-from schemas.auth import LoginRequest, LoginResponse, TokenData
+from schemas.auth import LoginRequest, LoginResponse, TokenData,RegisterRequest
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 # from core.auth import get_password_hash
@@ -21,10 +21,36 @@ auth_router = APIRouter(
 
 
 @auth_router.post("/register")
-async def register():
-    return {"message": "Register endpoint"}
+async def register(user_data: RegisterRequest, db: AsyncSession = Depends(get_db)):
+    # Check if user exists
+    result = await db.execute(select(User).where(User.email == user_data.email))
+    existing_user = result.scalars().first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
 
+    hashed_password = get_password_hash(user_data.password)
+    new_user = User(
+        first_name=user_data.first_name,
+        last_name=user_data.last_name,
+        email=user_data.email,
+        password=hashed_password,
+        status=UserStatus.pending,
+        phone_number=user_data.phone_number,
+        national_id=user_data.national_id,
+        role="client",  # Default role
+    )
 
+    db.add(new_user)
+    await db.commit()
+    await db.refresh(new_user)
+
+    # Create verification token
+    token = create_access_token(TokenData(id=new_user.id, role=new_user.role.value))
+
+    # Send verification email
+    await send_verification_email(new_user.email, token)
+
+    return {"message": "Registration successful. Please check your email to verify your account."}
 @auth_router.post("/login", response_model=LoginResponse)
 async def login(user_login: LoginRequest, db: AsyncSession = Depends(get_db)):
     CREDENTIALS_EXCEPTION = HTTPException(

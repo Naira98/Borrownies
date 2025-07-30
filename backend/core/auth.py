@@ -6,6 +6,7 @@ from jose import jwt
 from passlib.context import CryptContext
 from schemas.auth import TokenData
 
+
 # JWT Token
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 ALGORITHM: str = "HS256"
