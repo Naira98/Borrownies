@@ -7,6 +7,7 @@ from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers.auth import auth_router
 from settings import settings
+from routers import book
 
 sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__))))
 
@@ -39,3 +40,5 @@ api_router.include_router(auth_router)
 
 
 app.include_router(api_router)
+
+app.include_router(book.router)

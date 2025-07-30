@@ -1,8 +1,6 @@
 from __future__ import annotations
-
 from decimal import Decimal
 from enum import Enum
-
 from db.base import Base
 from sqlalchemy import ForeignKey, Integer, Numeric, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
