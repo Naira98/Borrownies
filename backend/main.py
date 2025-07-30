@@ -22,11 +22,11 @@ async def lifespan(app: FastAPI):
     print("Application shutdown.")
 
 
-app = FastAPI(title=settings.app_name, version=settings.version, lifespan=lifespan)
+app = FastAPI(title=settings.APP_NAME, version=settings.VERSION, lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.frontend_url],
+    allow_origins=[settings.APP_HOST],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

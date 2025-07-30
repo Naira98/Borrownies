@@ -11,16 +11,16 @@ from sqlalchemy.sql import func
 
 
 class UserStatus(Enum):
-    activated = "activated"
-    deactivated = "deactivated"
-    blocked = "blocked"
+    ACTIVATED = "ACTIVATED"
+    DEACTIVATED = "DEACTIVATED"
+    BLOCKED = "BLOCKED"
 
 
 class UserRole(Enum):
-    manager = "manager"
-    client = "client"
-    employee = "employee"
-    courier = "courier"
+    MANAGER = "MANAGER"
+    CLIENT = "CLIENT"
+    EMPLOYEE = "EMPLOYEE"
+    COURIER = "COURIER"
 
 
 class User(Base):
@@ -34,11 +34,15 @@ class User(Base):
     phone_number: Mapped[str] = mapped_column(String(20), unique=True, index=True)
     password: Mapped[str]
     wallet: Mapped[Decimal] = mapped_column(Numeric(10, 2), default=0.0)
-    status: Mapped[UserStatus] = mapped_column(default=UserStatus.deactivated.value)
-    role: Mapped[UserRole] = mapped_column(default=UserRole.client.value)
+    status: Mapped[UserStatus] = mapped_column(default=UserStatus.DEACTIVATED.value)
+    role: Mapped[UserRole] = mapped_column(default=UserRole.CLIENT.value)
     interests: Mapped[str | None] = mapped_column(String(255), nullable=True)
     created_date: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
+    )
+    reset_token: Mapped[str | None] = mapped_column(String, unique=True, nullable=True)
+    reset_token_expires_at: Mapped[datetime | None] = mapped_column(
+        DateTime, nullable=True
     )
 
     # Relationships
@@ -64,7 +68,6 @@ class User(Base):
     purchase_order_books: Mapped[list[PurchaseOrderBook]] = relationship(  # type: ignore # noqa: F821
         back_populates="user"
     )
-
 
     def __repr__(self) -> str:
         return f"<User(id={self.id}, email={self.email}, role={self.role.value})>"

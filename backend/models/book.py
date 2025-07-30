@@ -9,8 +9,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
 class BookStatus(Enum):
-    borrow = "borrow"
-    purchase = "purchase"
+    BORROW = "BORROW"
+    PURCHASE = "PURCHASE"
 
 
 class Author(Base):
