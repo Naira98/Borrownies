@@ -5,17 +5,19 @@ from decimal import Decimal
 from models.user import UserRole, UserStatus
 from pydantic import BaseModel, ConfigDict, EmailStr
 
-
-class LoginRequest(BaseModel):
+class UserBase(BaseModel):
     email: EmailStr
+   
+
+
+class LoginRequest(UserBase):
     password: str
 
 
-class UserResponse(BaseModel):
+class UserResponse(UserBase):
     id: int
     first_name: str
     last_name: str
-    email: str
     national_id: str
     phone_number: str
     wallet: Decimal
@@ -23,6 +25,8 @@ class UserResponse(BaseModel):
     role: UserRole
     interests: str | None
     created_date: datetime
+    reset_token: str | None = None
+    reset_token_expires_at: datetime | None = None
 
     model_config = ConfigDict(from_attributes=True, use_enum_values=True)
 
@@ -42,3 +46,25 @@ class TokenData(BaseModel):
 
 class LoginResponse(Token):
     user: UserResponse
+
+
+class ForgetPasswordRequest(UserBase):
+    pass
+
+class ResetPasswordRequest(BaseModel):
+    token: str
+    new_password: str
+
+class MessageResponse(BaseModel):
+    message: str
+
+class ResetForegetPassword(BaseModel):
+    reset_token: str
+    new_password: str
+    confirm_password: str
+
+    
+class SuccessMessage(BaseModel):
+    success: bool
+    status_code: int
+    message: str

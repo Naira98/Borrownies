@@ -10,16 +10,16 @@ from sqlalchemy.sql import func
 
 
 class NotificationStatus(Enum):
-    read = "read"
-    unread = "unread"
+    READ = "READ"
+    UNREAD = "UNREAD"
 
 
 class NotificationType(Enum):
-    order_status_update = "order_status_update"
-    return_order_status_update = "return_order_status_update"
-    return_reminder = "return_reminder"
-    new_promo_code = "new_promo_code"
-    wallet_updated = "wallet_updated"
+    ORDER_STATUS_UPDATE = "ORDER_STATUS_UPDATE"
+    RETURN_ORDER_STATUS_UPDATE = "RETURN_ORDER_STATUS_UPDATE"
+    RETURN_REMINDER = "RETURN_REMINDER"
+    NEW_PROMO_CODE = "NEW_PROMO_CODE"
+    WALLET_UPDATED = "WALLET_UPDATED"
 
 
 class Notification(Base):
@@ -29,7 +29,7 @@ class Notification(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     type: Mapped[NotificationType]
     status: Mapped[NotificationStatus] = mapped_column(
-        default=NotificationStatus.unread.value
+        default=NotificationStatus.UNREAD.value
     )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
