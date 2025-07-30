@@ -11,13 +11,13 @@ export default function MainButton({
       type="submit"
       disabled={disabled || loading}
       className={classNames(
-        "bg-primary hover:bg-hover disabled:hover:bg-primary relative flex h-10 w-full items-center justify-center rounded-md border border-transparent text-sm font-medium text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60",
+        "bg-primary hover:bg-hover disabled:hover:bg-primary relative flex h-10 w-full items-center justify-center rounded-md border border-transparent text-sm font-medium text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-70",
         className,
       )}
     >
       {loading ? (
         <svg
-          className="mr-3 -ml-1 size-5 animate-spin text-white"
+          className="size-5 animate-spin text-white"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

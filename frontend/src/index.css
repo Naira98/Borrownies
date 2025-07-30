@@ -3,6 +3,7 @@
 @theme {
   --color-background: #dfe8ef;
   --color-primary: #0b3460;
+  --color-hover: #0d4a8f;
   --color-secondary: #f9a806;
 }
 
@@ -42,14 +43,14 @@
 /* Optional: Font-face definitions if you are using custom downloaded fonts */
 
 @font-face {
-  font-family: 'YourCreativeFont1';
-  src: url('/fonts/YourCreativeFont1.woff2') format('woff2');
+  font-family: "YourCreativeFont1";
+  src: url("/fonts/YourCreativeFont1.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
-} 
+}
 @font-face {
-  font-family: 'YourCreativeFont2';
-  src: url('/fonts/YourCreativeFont2.woff2') format('woff2');
+  font-family: "YourCreativeFont2";
+  src: url("/fonts/YourCreativeFont2.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }

@@ -1,163 +1,147 @@
-// src/pages/Register.tsx
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Field } from 'react-final-form';
-import AuthLayout from '../components/AuthLayout'; // Import AuthLayout
-import { AuthInputField } from '../components/AuthInputField'; // Import AuthInputField
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  nationalId: string;
-  phoneNumber: string;
-  password: string;
-  confirmPassword: string;
-  interests: string;
-}
+import { Link, useNavigate } from "react-router-dom";
+import { Form } from "react-final-form";
+import MainButton from "../components/shared/buttons/MainButton";
+import TextInput from "../components/shared/formInputs/TextInput";
+import AuthLayout from "../components/auth/AuthLayout";
+import type { RegisterFormData } from "../types/auth";
 
-const Register = () => {
-  const [notification, setNotification] = useState(false);
+export default function Register() {
   const navigate = useNavigate();
 
-  const interestsList = ['Fiction', 'Science', 'History', 'Fantasy', 'Biography'];
+  const validate = (values: RegisterFormData) => {
+    const errors: Partial<RegisterFormData> = {};
 
-  const imageUrl = "https://img.freepik.com/premium-vector/people-learn-gain-knowledge-creative-design-schedule-students-learn-books-vector_566886-948.jpg";
-
-  const validate = (values: FormData) => {
-    const errors: Partial<FormData> = {};
-
-    if (!values.firstName) errors.firstName = 'First Name is required';
-    if (!values.lastName) errors.lastName = 'Last Name is required';
+    if (!values.firstName) errors.firstName = "First Name is required";
+    if (!values.lastName) errors.lastName = "Last Name is required";
     if (!values.email) {
-      errors.email = 'Email is required';
+      errors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
-      errors.email = 'Invalid email address';
+      errors.email = "Invalid email address";
     }
     if (!values.nationalId) {
-      errors.nationalId = 'National ID is required';
+      errors.nationalId = "National ID is required";
     } else if (!/^\d{14}$/.test(values.nationalId)) {
-      errors.nationalId = 'National ID must be exactly 14 digits';
+      errors.nationalId = "National ID must be exactly 14 digits";
     }
     if (!values.phoneNumber) {
-      errors.phoneNumber = 'Phone Number is required';
+      errors.phoneNumber = "Phone Number is required";
     } else if (!/^\d{11,13}$/.test(values.phoneNumber)) {
-      errors.phoneNumber = 'Phone must be 11-13 digits';
+      errors.phoneNumber = "Phone must be 11-13 digits";
     }
-    if (!values.password) errors.password = 'Password is required';
+    if (!values.password) errors.password = "Password is required";
     if (!values.confirmPassword) {
-      errors.confirmPassword = 'Confirm Password is required';
+      errors.confirmPassword = "Confirm Password is required";
     } else if (values.password !== values.confirmPassword) {
-      errors.confirmPassword = 'Passwords do not match';
+      errors.confirmPassword = "Passwords do not match";
     }
 
     return errors;
   };
 
-  const onSubmit = (values: FormData) => {
-    console.log('Registration Data:', values);
-    setNotification(true);
+  const onSubmit = (values: RegisterFormData) => {
+    console.log("Registration Data:", values);
     setTimeout(() => {
-      setNotification(false);
-      navigate('/email_verification'); // Redirect to Email Verification page
+      navigate("/email_verification"); // Redirect to Email Verification page
     }, 2000);
   };
 
-  useEffect(() => {
-    document.title = 'Book Nook - Register';
-  }, []);
-
   return (
-    <div className="min-h-screen h-[100dvh] w-full overflow-hidden flex items-center justify-center bg-gradient-to-br from-blue-100  p-4">
-      {notification && (
-        <div className="absolute top-4 right-4 bg-green-100 text-green-800 px-4 py-2 rounded-md shadow-md text-sm z-50">
-          ✅ Registered successfully!
-        </div>
-      )}
-      <div className="bg-white shadow-xl rounded-xl w-full max-w-[1400px] h-[calc(100vh-4rem)] grid grid-cols-1 md:grid-cols-2 overflow-hidden">
-        <div className="relative p-8 flex flex-col justify-center bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-cover bg-no-repeat bg-center">
-          <div className="mb-4">
-            <h1 className="text-2xl font-semibold text-primary mb-1">Welcome to</h1>
-            <h2 className="text-5xl font-extrabold text-secondary leading-snug tracking-tight">Book Nook</h2>
-            <p className="text-l mt-3 text-gray-700">Discover a world of books tailored to your taste!</p>
-          </div>
-          <img
-            src={imageUrl}
-            alt="Book Nook Illustration"
-            className="w-full h-auto mt-6 object-contain rounded-[3rem] shadow-md"
-            style={{ maxHeight: '400px' }}
-          />
-        </div>
-        {/* AuthLayout will now contain the form */}
-        <AuthLayout<FormData> // Specify the type of FormValues here
+    <AuthLayout imgSrc="src/assets/register.svg">
+      <div className="flex w-full flex-col overflow-auto p-6 md:w-1/2 lg:p-8">
+        <Form
           onSubmit={onSubmit}
           validate={validate}
-          formTitle="Create Your Book Nook Account"
-          submitButtonText="Sign Up"
-          bottomLink={
-            <p className="text-center text-primary mt-6 text-sm">
-              Already have an account?{' '}
-              <Link to="/login" className="text-secondary hover:underline font-semibold">
-                Sign In
-              </Link>
-            </p>
-          }
-        >
-          {({ showPassword, togglePassword, showConfirmPassword, toggleConfirmPassword }) => (
-            <>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <AuthInputField name="firstName" label="First Name" />
-                <AuthInputField name="lastName" label="Last Name" />
+          render={({
+            handleSubmit,
+            submitting,
+            pristine,
+            hasValidationErrors,
+          }) => (
+            <form onSubmit={handleSubmit}>
+              <div className="flex flex-wrap gap-x-5">
+                {RegisterformData.map((item, index) => (
+                  <TextInput
+                    key={index}
+                    name={item.name}
+                    type={item.type}
+                    placeholder={item.placeholder}
+                    inputLabel={item.inputLabel}
+                    containerClassName={item.containerClassName}
+                  />
+                ))}
               </div>
-              <AuthInputField name="email" label="Email Address" type="email" />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <AuthInputField name="nationalId" label="National ID" />
-                <AuthInputField name="phoneNumber" label="Phone Number" />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <AuthInputField
-                  name="password"
-                  label="Password"
-                  isPassword
-                  showPasswordState={showPassword}
-                  togglePasswordVisibility={togglePassword}
-                />
-                <AuthInputField
-                  name="confirmPassword"
-                  label="Confirm Password"
-                  isPassword
-                  showPasswordState={showConfirmPassword}
-                  togglePasswordVisibility={toggleConfirmPassword}
+
+              <div className="mt-6">
+                <MainButton
+                  disabled={submitting || pristine || hasValidationErrors}
+                  loading={submitting}
+                  label="Register"
                 />
               </div>
-              <div className="relative">
-                <Field name="interests">
-                  {({ input, meta }) => (
-                    <>
-                      <select
-                        {...input}
-                        id="interests"
-                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-gray-700"
-                      >
-                        <option value="" disabled>Select your interests</option>
-                        {interestsList.map((interest) => (
-                          <option key={interest} value={interest}>{interest}</option>
-                        ))}
-                      </select>
-                      <label htmlFor="interests" className="block text-primary text-sm font-semibold mb-2 mt-2">Interests (Optional)</label>
-                      {meta.error && meta.touched && (
-                        <p className="text-red-500 text-xs mt-1">{meta.error}</p>
-                      )}
-                    </>
-                  )}
-                </Field>
-              </div>
-            </>
+            </form>
           )}
-        </AuthLayout>
+        />
+        <div className="mt-5 text-center">
+          <p className="text-primary text-sm">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="text-secondary font-medium transition-colors"
+            >
+              Login
+            </Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </AuthLayout>
   );
-};
+}
 
-export default Register;
-
+const RegisterformData = [
+  {
+    name: "firstName",
+    type: "text",
+    placeholder: "First Name",
+    inputLabel: "First Name",
+    containerClassName: "!w-full sm:!w-[calc(50%-10px)]",
+  },
+  {
+    name: "lastName",
+    type: "text",
+    placeholder: "Last Name",
+    inputLabel: "Last Name",
+    containerClassName: "!w-full sm:!w-[calc(50%-10px)]",
+  },
+  {
+    name: "email",
+    type: "email",
+    placeholder: "Email Address",
+    inputLabel: "Email Address",
+  },
+  {
+    name: "nationalId",
+    type: "text",
+    placeholder: "National ID",
+    inputLabel: "National ID",
+    containerClassName: "!w-full sm:!w-[calc(50%-10px)]",
+  },
+  {
+    name: "phoneNumber",
+    type: "text",
+    placeholder: "Phone Number",
+    inputLabel: "Phone Number",
+    containerClassName: "!w-full sm:!w-[calc(50%-10px)]",
+  },
+  {
+    name: "password",
+    type: "password",
+    placeholder: "Password",
+    inputLabel: "Password",
+  },
+  {
+    name: "confirmPassword",
+    type: "password",
+    placeholder: "Confirm Password",
+    inputLabel: "Confirm Password",
+  },
+];
