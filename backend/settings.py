@@ -22,10 +22,11 @@ class Settings(BaseSettings):
     MAIL_USERNAME: str | None = os.getenv("MAIL_USERNAME")
     MAIL_PASSWORD: str | None = os.getenv("MAIL_PASSWORD")
     MAIL_FROM: str | None = os.getenv("MAIL_FROM")
-    MAIL_PORT: int | None = int(os.getenv("MAIL_PORT", 2525))
+    MAIL_PORT: int | None = int(os.getenv("MAIL_PORT", 587))
     MAIL_SERVER: str | None = os.getenv("MAIL_SERVER")
-    MAIL_TLS: bool = os.getenv("MAIL_USE_TLS", "True").lower() == "true"
-    MAIL_SSL: bool = os.getenv("MAIL_USE_SSL", "False").lower() == "true"
+    MAIL_STARTTLS: bool = os.getenv("MAIL_STARTTLS", "True").lower() == "true"
+    MAIL_SSL_TLS: bool = os.getenv("MAIL_SSL_TLS", "False").lower() == "true"
+    USE_CREDENTIALS: bool = os.getenv("USE_CREDENTIALS", "True").lower() == "true"
 
 
 settings = Settings()

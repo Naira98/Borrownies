@@ -101,7 +101,6 @@ async def forget_password(
 
         reset_token, reset_token_expires_at = create_reset_password_token(user.email)
 
-        # add to user
         user.reset_token = reset_token
         user.reset_token_expires_at = reset_token_expires_at
         db.add(user)
