@@ -34,7 +34,7 @@ class Book(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     title: Mapped[str] = mapped_column(String(255))
-    price: Mapped[Decimal] = mapped_column(Numeric(4, 2))
+    price: Mapped[Decimal] = mapped_column(Numeric(6, 2))
     description: Mapped[str] = mapped_column(String(1000), nullable=True)
     cover_img: Mapped[str] = mapped_column(String, nullable=True)
 
@@ -50,7 +50,7 @@ class Book(Base):
 
 class BookDetails(Base):
     __tablename__ = "book_details"
-    __tableargs__ = (UniqueConstraint("book_id", "status"))
+    __table_args__ = (UniqueConstraint("book_id", "status", name="uq_book_status"),)
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     available_stock: Mapped[int] = mapped_column(Integer)
