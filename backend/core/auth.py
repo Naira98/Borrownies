@@ -1,17 +1,13 @@
-import os
 from datetime import datetime, timedelta, timezone
-from typing import Optional, Literal
+from typing import Literal, Optional
 
 from fastapi import BackgroundTasks
+from fastapi_mail import ConnectionConfig, FastMail, MessageSchema, MessageType
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-from settings import settings
+from pydantic import SecretStr
 from schemas.auth import TokenData
-
-# JWT Token
-JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
-ALGORITHM: str = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+from settings import settings
 
 
 def create_access_token(
@@ -23,15 +19,17 @@ def create_access_token(
         expire = datetime.now(timezone.utc) + expires_delta
     else:
         expire = datetime.now(timezone.utc) + timedelta(
-            minutes=ACCESS_TOKEN_EXPIRE_MINUTES
+            minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
         )
 
     to_encode["exp"] = expire
 
-    if JWT_SECRET_KEY is None:
+    if settings.JWT_SECRET_KEY is None:
         raise ValueError("JWT_SECRET_KEY is not set")
 
-    encoded_jwt = jwt.encode(to_encode, JWT_SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(
+        to_encode, settings.JWT_SECRET_KEY, algorithm=settings.ALGORITHM
+    )
     return encoded_jwt
 
 

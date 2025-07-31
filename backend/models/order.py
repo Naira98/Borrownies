@@ -11,29 +11,29 @@ from sqlalchemy.sql import func
 
 
 class BorrowBookProblem(Enum):
-    normal = "normal"
-    lost = "lost"
-    damaged = "damaged"
+    NORMAL = "NORMAL"
+    LOST = "LOST"
+    DAMAGED = "DAMAGED"
 
 
 class PickUpType(Enum):
-    site = "site"
-    courier = "courier"
+    SITE = "SITE"
+    COURIER = "COURIER"
 
 
 class OrderStatus(Enum):
-    created = "created"
-    on_the_way = "on_the_way"
-    picked_up = "picked_up"
-    problem = "problem"
+    CREATED = "CREATED"
+    ON_THE_WAY = "ON_THE_WAY"
+    PICKED_UP = "PICKED_UP"
+    PROBLEM = "PROBLEM"
 
 
 class ReturnOrderStatus(Enum):
-    created = "created"
-    on_the_way = "on_the_way"
-    picked_up = "picked_up"
-    checking = "checking"
-    problem = "problem"
+    CREATED = "CREATED"
+    ON_THE_WAY = "ON_THE_WAY"
+    PICKED_UP = "PICKED_UP"
+    CHECKING = "CHECKING"
+    PROBLEM = "PROBLEM"
 
 
 class BorrowOrderBook(Base):
@@ -45,7 +45,7 @@ class BorrowOrderBook(Base):
         DateTime(timezone=True), nullable=True
     )
     borrow_book_problem: Mapped[BorrowBookProblem] = mapped_column(
-        default=BorrowBookProblem.normal.value
+        default=BorrowBookProblem.NORMAL.value
     )
     deposit_fees: Mapped[Decimal] = mapped_column(Numeric(5, 2))
     borrow_fees: Mapped[Decimal] = mapped_column(Numeric(5, 2))
@@ -104,7 +104,7 @@ class Order(Base):
     phone_number: Mapped[str]
     pick_up_date: Mapped[datetime | None] = mapped_column(default=None, nullable=True)
     pick_up_type: Mapped[PickUpType]
-    status: Mapped[OrderStatus] = mapped_column(default=OrderStatus.created.value)
+    status: Mapped[OrderStatus] = mapped_column(default=OrderStatus.CREATED.value)
 
     # Foreign Keys
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
@@ -134,7 +134,7 @@ class ReturnOrder(Base):
         DateTime(timezone=True), server_default=func.now()
     )
     status: Mapped[ReturnOrderStatus] = mapped_column(
-        default=ReturnOrderStatus.created.value
+        default=ReturnOrderStatus.CREATED.value
     )
 
     # Foreign Keys
