@@ -2,8 +2,8 @@ from datetime import datetime
 
 from core.auth import (
     create_access_token,
-    create_reset_password_token,
-    decode_reset_password_token,
+    create_token_generic,
+    decode_token_generic,
     get_password_hash,
     send_email,
     verify_password,
@@ -99,7 +99,13 @@ async def forget_password(
                 detail="Invalid Email address",
             )
 
-        reset_token, reset_token_expires_at = create_reset_password_token(user.email)
+        reset_token, reset_token_expires_at = create_token_generic(
+            user.email,
+            settings.FORGET_PASSWORD_SECRET_KEY,
+            settings.ALGORITHM,
+            "FORGET_PASSWORD_SECRET_KEY",
+            settings.RESET_PASSWORD_TOKEN_EXPIRATION_MINUTES,
+        )
 
         user.reset_token = reset_token
         user.reset_token_expires_at = reset_token_expires_at
@@ -133,7 +139,7 @@ async def forget_password(
         )
 
         return {
-            "message": "If an account with that email exists, a password reset email has been sent."
+            "message": "Password reset email has been sent."
         }
 
     except Exception as e:
@@ -153,7 +159,12 @@ async def reset_password(rfp: ResetForegetPassword, db: AsyncSession = Depends(g
                 detail="New password and confirm password are not same.",
             )
 
-        info = decode_reset_password_token(reset_token=rfp.reset_token)
+        info = decode_token_generic(
+            rfp.reset_token,
+            settings.FORGET_PASSWORD_SECRET_KEY,
+            settings.ALGORITHM,
+            "FORGET_PASSWORD_SECRET_KEY",
+        )
         if info is None:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
