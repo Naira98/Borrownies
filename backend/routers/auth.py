@@ -18,14 +18,15 @@ from schemas.auth import (
     MessageResponse,
     ResetForegetPassword,
     SuccessMessage,
+    Token,
     TokenData,
 )
 from settings import settings
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
-# from models.user import UserRole
 
+# from schemas.user import UserRole
 
 auth_router = APIRouter(
     prefix="/auth",
@@ -80,7 +81,9 @@ async def login(user_login: LoginRequest, db: AsyncSession = Depends(get_db)):
 
     access_token = create_access_token(TokenData(id=user.id, role=user.role.value))
 
-    return LoginResponse(access_token=access_token, user=user)
+    return LoginResponse(
+        access_token=Token(token=access_token, token_type="bearer"), user=user
+    )
 
 
 @auth_router.post("/forget-password", response_model=MessageResponse)
@@ -138,9 +141,7 @@ async def forget_password(
             user.email, html_body, "Password Reset Request", background_tasks
         )
 
-        return {
-            "message": "Password reset email has been sent."
-        }
+        return {"message": "Password reset email has been sent."}
 
     except Exception as e:
         print(f"An error occurred in /forget-password: {e}")
