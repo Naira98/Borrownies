@@ -6,8 +6,7 @@ from dotenv import load_dotenv
 from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers.auth import auth_router
-
-FRONT_URL = "http://localhost:5173"
+from settings import settings
 
 sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__))))
 
@@ -23,11 +22,11 @@ async def lifespan(app: FastAPI):
     print("Application shutdown.")
 
 
-app = FastAPI(title="Book Nook API", version="1.0.0", lifespan=lifespan)
+app = FastAPI(title=settings.APP_NAME, version=settings.VERSION, lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONT_URL],
+    allow_origins=[settings.APP_HOST],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

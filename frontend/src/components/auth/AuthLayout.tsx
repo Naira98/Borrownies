@@ -2,12 +2,13 @@ import type { ReactNode } from "react";
 import classNames from "classnames";
 export default function AuthLayout({
   children,
-  imgSrc,
+
   cardClassName,
+  title = "Welcome to BookNook",
 }: {
   children: ReactNode;
-  imgSrc: string;
   cardClassName?: string;
+  title?: string;
 }) {
   return (
     <div className="bg-background relative flex h-screen w-screen flex-col items-center justify-start gap-4 p-4 md:justify-center">
@@ -18,7 +19,7 @@ export default function AuthLayout({
       <div className="flex w-full flex-1 items-center justify-center">
         <div
           className={classNames(
-            "flex max-h-[calc(100vh-80px)] w-full max-w-5xl flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg",
+            "flex max-h-[calc(100vh-80px)] min-h-[500px] w-full max-w-5xl flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg",
             cardClassName,
           )}
         >
@@ -29,20 +30,11 @@ export default function AuthLayout({
             /> */}
 
             <h2 className="text-primary relative z-10 text-2xl font-bold">
-              Welcome to BookNook
+              {title}
             </h2>
           </div>
-          <div className="flex flex-1 flex-col overflow-auto md:flex-row-reverse">
-            <div className="hidden w-1/2 items-center justify-center md:flex">
-              <img
-                src={imgSrc}
-                className="max-w-[80%] object-contain"
-                alt="Books"
-              />
-            </div>
 
-            {children}
-          </div>
+          {children}
         </div>
       </div>
     </div>

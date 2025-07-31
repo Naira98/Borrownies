@@ -12,3 +12,12 @@ export interface RegisterFormData {
   password: string;
   confirmPassword: string;
 }
+
+export interface EmailFormValues {
+  email: string;
+}
+
+export interface ResetPasswordValues {
+  newPassword: string;
+  confirmPassword: string;
+}

@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Form } from "react-final-form";
-import MainButton from "../components/shared/buttons/MainButton";
-import TextInput from "../components/shared/formInputs/TextInput";
-import AuthLayout from "../components/auth/AuthLayout";
-import type { RegisterFormData } from "../types/auth";
+import MainButton from "../../components/shared/buttons/MainButton";
+import TextInput from "../../components/shared/formInputs/TextInput";
+import AuthLayout from "../../components/auth/AuthLayout";
+import type { RegisterFormData } from "../../types/auth";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -46,51 +46,60 @@ export default function Register() {
   };
 
   return (
-    <AuthLayout imgSrc="src/assets/register.svg">
-      <div className="flex w-full flex-col overflow-auto p-6 md:w-1/2 lg:p-8">
-        <Form
-          onSubmit={onSubmit}
-          validate={validate}
-          render={({
-            handleSubmit,
-            submitting,
-            pristine,
-            hasValidationErrors,
-          }) => (
-            <form onSubmit={handleSubmit}>
-              <div className="flex flex-wrap gap-x-5">
-                {RegisterformData.map((item, index) => (
-                  <TextInput
-                    key={index}
-                    name={item.name}
-                    type={item.type}
-                    placeholder={item.placeholder}
-                    inputLabel={item.inputLabel}
-                    containerClassName={item.containerClassName}
-                  />
-                ))}
-              </div>
+    <AuthLayout>
+      <div className="flex flex-1 flex-col overflow-auto md:flex-row-reverse">
+        <div className="hidden w-1/2 items-center justify-center md:flex">
+          <img
+            src="src/assets/register.svg"
+            className="max-w-[80%] object-contain"
+            alt="Books"
+          />
+        </div>
+        <div className="flex w-full flex-col overflow-auto p-6 md:w-1/2 lg:p-8">
+          <Form
+            onSubmit={onSubmit}
+            validate={validate}
+            render={({
+              handleSubmit,
+              submitting,
+              pristine,
+              hasValidationErrors,
+            }) => (
+              <form onSubmit={handleSubmit}>
+                <div className="flex flex-wrap gap-x-5">
+                  {RegisterformData.map((item, index) => (
+                    <TextInput
+                      key={index}
+                      name={item.name}
+                      type={item.type}
+                      placeholder={item.placeholder}
+                      inputLabel={item.inputLabel}
+                      containerClassName={item.containerClassName}
+                    />
+                  ))}
+                </div>
 
-              <div className="mt-6">
-                <MainButton
-                  disabled={submitting || pristine || hasValidationErrors}
-                  loading={submitting}
-                  label="Register"
-                />
-              </div>
-            </form>
-          )}
-        />
-        <div className="mt-5 text-center">
-          <p className="text-primary text-sm">
-            Already have an account?{" "}
-            <Link
-              to="/login"
-              className="text-secondary font-medium transition-colors"
-            >
-              Login
-            </Link>
-          </p>
+                <div className="mt-6">
+                  <MainButton
+                    disabled={submitting || pristine || hasValidationErrors}
+                    loading={submitting}
+                    label="Register"
+                  />
+                </div>
+              </form>
+            )}
+          />
+          <div className="mt-5 text-center">
+            <p className="text-primary text-sm">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="text-secondary font-medium transition-colors"
+              >
+                Login
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </AuthLayout>
