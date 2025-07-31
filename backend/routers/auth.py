@@ -40,8 +40,8 @@ async def login(user_login: LoginRequest, db: AsyncSession = Depends(get_db)):
     #         "last_name": "test",
     #         "email": "test@test.com",
     #         "password": get_password_hash("test"),
-    #         "status": UserStatus.activated,
-    #         "role": UserRole.client,
+    #         "status": UserStatus.ACTIVATED.value,
+    #         "role": UserRole.CLIENT.value,
     #         "national_id": "12345678901234",
     #         "phone_number": "12345678901",
     #     }

@@ -4,7 +4,7 @@ from decimal import Decimal
 from enum import Enum
 
 from db.base import Base
-from sqlalchemy import ForeignKey, Integer, Numeric, String
+from sqlalchemy import ForeignKey, Integer, Numeric, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
@@ -31,6 +31,7 @@ class Category(Base):
 
 class Book(Base):
     __tablename__ = "books"
+
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     title: Mapped[str] = mapped_column(String(255))
     price: Mapped[Decimal] = mapped_column(Numeric(4, 2))
@@ -49,6 +50,7 @@ class Book(Base):
 
 class BookDetails(Base):
     __tablename__ = "book_details"
+    __tableargs__ = (UniqueConstraint("book_id", "status"))
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     available_stock: Mapped[int] = mapped_column(Integer)
