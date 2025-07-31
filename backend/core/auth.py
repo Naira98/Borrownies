@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, timezone
-from typing import Optional
+from typing import Literal, Optional
 
 from fastapi import BackgroundTasks
 from fastapi_mail import ConnectionConfig, FastMail, MessageSchema, MessageType
@@ -45,33 +45,42 @@ def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
 
 
-def create_reset_password_token(email: str):
-    if settings.FORGET_PASSWORD_SECRET_KEY is None:
-        raise ValueError("FORGET_PASSWORD_SECRET_KEY is not set")
+def create_token_generic(
+    email: str,
+    secret_key: Optional[str],
+    algorithm: str,
+    subject: Literal["FORGET_PASSWORD_SECRET_KEY", "EMAIL_VERIFICATION_SECRET_KEY"],
+    expiration_minutes: int,
+):
+    if secret_key is None:
+        raise ValueError(f"{subject} is not set")
 
-    reset_token_expires_at = datetime.now() + timedelta(
-        minutes=settings.RESET_PASSWORD_TOKEN_EXPIRATION_MINUTES
-    )
+    token_expires_at = datetime.now() + timedelta(minutes=expiration_minutes)
 
     data = {
         "sub": email,
-        "exp": reset_token_expires_at,
+        "exp": token_expires_at,
     }
-    reset_token = jwt.encode(
-        data, settings.FORGET_PASSWORD_SECRET_KEY, settings.ALGORITHM
-    )
-    return (reset_token, reset_token_expires_at)
+    token = jwt.encode(data, secret_key, algorithm)
+    return (token, token_expires_at)
 
 
-def decode_reset_password_token(reset_token: str):
-    if settings.FORGET_PASSWORD_SECRET_KEY is None:
-        raise ValueError("FORGET_PASSWORD_SECRET_KEY is not set")
+def decode_token_generic(
+    token: str,
+    secret_key: Optional[str],
+    algorithm: str,
+    subject: Literal[
+        "JWT_SECRET_KEY", "FORGET_PASSWORD_SECRET_KEY", "EMAIL_VERIFICATION_SECRET_KEY"
+    ],
+):
+    if secret_key is None:
+        raise ValueError(f"{subject} is not set")
 
     try:
         payload = jwt.decode(
-            reset_token,
-            settings.FORGET_PASSWORD_SECRET_KEY,
-            algorithms=[settings.ALGORITHM],
+            token,
+            secret_key,
+            algorithms=[algorithm],
         )
 
         email_from_payload = payload.get("sub")
@@ -122,4 +131,4 @@ async def send_email(
     )
 
     background_tasks.add_task(fm.send_message, message)
-    print(f"Added task to send password reset email to {user_email}")
+    print(f"Added task to send email to {user_email}")

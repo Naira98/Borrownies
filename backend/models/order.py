@@ -100,6 +100,8 @@ class Order(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
+    address: Mapped[str]
+    phone_number: Mapped[str]
     pick_up_date: Mapped[datetime | None] = mapped_column(default=None, nullable=True)
     pick_up_type: Mapped[PickUpType]
     status: Mapped[OrderStatus] = mapped_column(default=OrderStatus.CREATED.value)
@@ -125,6 +127,8 @@ class ReturnOrder(Base):
     __tablename__ = "return_orders"
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    address: Mapped[str]
+    phone_number: Mapped[str]
     pick_up_type: Mapped[PickUpType]
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
