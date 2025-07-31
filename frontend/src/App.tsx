@@ -1,22 +1,28 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Register from "./pages/auth/Register";
-import Login from "./pages/auth/Login";
-import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import EmailVerification from "./pages/auth/EmailVerification";
-import EmailPage from "./pages/auth/EmailPage";
+import ForgetPassword from "./pages/auth/ForgetPassword";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 const App = () => {
+  const queryClient = new QueryClient();
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/email_verification" element={<EmailVerification />} />
-        <Route path="/reset-password-request" element={<EmailPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
-      </Routes>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/email-verification" element={<EmailVerification />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+        </Routes>
+      </QueryClientProvider>
     </BrowserRouter>
   );
 };

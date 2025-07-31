@@ -73,7 +73,6 @@ export default function Register() {
                       name={item.name}
                       type={item.type}
                       placeholder={item.placeholder}
-                      inputLabel={item.inputLabel}
                       containerClassName={item.containerClassName}
                     />
                   ))}

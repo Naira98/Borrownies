@@ -59,7 +59,6 @@ const LoginPage = () => {
                     name={item.name}
                     type={item.type}
                     placeholder={item.placeholder}
-                    inputLabel={item.inputLabel}
                   />
                 ))}
                 <div className="flex items-center justify-between">
@@ -78,12 +77,12 @@ const LoginPage = () => {
                     </Field>
                   </div>
                   <div className="text-sm">
-                    <a
-                      href="#"
+                    <Link
+                      to="/forget-password"
                       className="text-primary font-medium transition-colors"
                     >
                       Forgot your password?
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="mt-12">
