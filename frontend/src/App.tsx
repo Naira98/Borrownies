@@ -3,6 +3,9 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import LoginPage from './pages/LoginPage';
 import EmailVerification from './pages/EmailVerification';
+import EmailPage from './pages/EmailPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
+
 
 const App = () => {
   return (
@@ -12,6 +15,8 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/email_verification" element={<EmailVerification />} />
+          <Route path="/reset-password-request" element={<EmailPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
         </Routes>
      </BrowserRouter>
   );
