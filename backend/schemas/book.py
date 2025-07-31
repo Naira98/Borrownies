@@ -3,7 +3,17 @@ from pydantic import BaseModel, ConfigDict
 from models.book import BookStatus
 
 
-# Author response schema
+# Book base schema
+class Book(BaseModel):
+    id: int
+    title: str
+    price: Decimal
+    description: str
+    cover_img: str | None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class AuthorSchema(BaseModel):
     id: int
     name: str
@@ -11,22 +21,25 @@ class AuthorSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-# Category response schema
 class CategorySchema(BaseModel):
     id: int
     name: str
+
     model_config = ConfigDict(from_attributes=True)
 
 
-# Book response schema with nested author, category, and status only
-class BookResponse(BaseModel):
-    id: int
-    title: str
-    price: Decimal
-    description: str | None
-    cover_img: str | None
+class BookDetailsSchema(BaseModel):
+    status: BookStatus
+    available_stock: int
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class BookResponse(Book):
     author: AuthorSchema
     category: CategorySchema
-    status: BookStatus | None  # Status can be 'borrow', 'purchase', or None
+    book_details: list[
+        BookDetailsSchema  # Changed to list because a book can have multiple details(borrowed, purchased)
+    ]
 
     model_config = ConfigDict(from_attributes=True)

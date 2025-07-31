@@ -7,11 +7,6 @@ from schemas.book import BookResponse, BookStatus
 router = APIRouter(prefix="/books", tags=["Books"])
 
 
-@router.get("/", response_model=list[BookResponse])
-async def get_books(db: AsyncSession = Depends(get_db)):
-    return await book_crud.get_all_books(db)
-
-
 @router.get("/search/", response_model=list[BookResponse])
 async def search_books(
     title: str = Query(..., min_length=1),

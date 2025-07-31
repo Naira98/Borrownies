@@ -1,34 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from sqlalchemy.orm import selectinload
-from models.book import (
-    Book,
-    BookDetails,
-    BookStatus,
-)
+from sqlalchemy.orm import selectinload, contains_eager
+
+from models.book import Book, BookDetails, BookStatus
 
 
-# Inject status field into each Book from its related BookDetails
-def inject_status(books: list[Book]):
-    for book in books:
-        book.status = book.book_details[0].status.value if book.book_details else None
-    return books
-
-
-# Get all books with their author, category, and status
-async def get_all_books(db: AsyncSession):
-    result = await db.execute(
-        select(Book).options(
-            selectinload(Book.author),
-            selectinload(Book.category),
-            selectinload(Book.book_details),
-        )
-    )
-    books = result.scalars().all()
-    return inject_status(books)
-
-
-# Search books by title with author, category, and status
+# Fetch books by partial match in title (case-insensitive)
 async def search_books_by_title(db: AsyncSession, title: str):
     stmt = (
         select(Book)
@@ -40,45 +17,22 @@ async def search_books_by_title(db: AsyncSession, title: str):
         )
     )
     result = await db.execute(stmt)
-    books = result.scalars().all()
-    return inject_status(books)
+    books = result.scalars().all()  # to avoid redundant columns data
+    return books
 
 
-async def get_books_by_status(db: AsyncSession, status: str):
-    try:
-        status_enum = BookStatus(status)
-    except ValueError:
-        return []
-
+# Fetch books based on their status in BookDetails (e.g., 'borrow', 'purchase').
+async def get_books_by_status(db: AsyncSession, status: BookStatus):
     stmt = (
         select(Book)
         .join(Book.book_details)
-        .where(BookDetails.status == status_enum)
+        .where(BookDetails.status == status)
         .options(
             selectinload(Book.author),
             selectinload(Book.category),
-            selectinload(Book.book_details),
+            contains_eager(Book.book_details),  # Only load the filtered book_details
         )
-        .distinct()
     )
     result = await db.execute(stmt)
-    books = result.scalars().all()
-    return inject_status(books)
-
-
-# Get books filtered by status (borrow or purchase)
-# async def get_books_by_status(db: AsyncSession, status: str):
-#     stmt = (
-#         select(Book)
-#         .join(Book.book_details)
-#         .where(BookDetails.status == status)
-#         .options(
-#             selectinload(Book.author),
-#             selectinload(Book.category),
-#             selectinload(Book.book_details),
-#         )
-#         .distinct()
-#     )
-#     result = await db.execute(stmt)
-#     books = result.scalars().all()
-#     return inject_status(books)
+    books = result.unique().scalars().all()
+    return books
