@@ -1,0 +1,27 @@
+[
+  {
+    "code": "SAVE15",
+    "discount_perc": 0.15,
+    "is_active": true
+  },
+  {
+    "code": "WELCOME20",
+    "discount_perc": 0.2,
+    "is_active": true
+  },
+  {
+    "code": "BOOKLOVER",
+    "discount_perc": 0.1,
+    "is_active": false
+  },
+  {
+    "code": "SUMMER30",
+    "discount_perc": 0.3,
+    "is_active": true
+  },
+  {
+    "code": "FIVEOFF",
+    "discount_perc": 0.05,
+    "is_active": true
+  }
+]

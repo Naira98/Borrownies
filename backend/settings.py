@@ -8,6 +8,9 @@ class Settings(BaseSettings):
     VERSION: str = "1.0.0"
     APP_HOST: str = "http://localhost:5173"
 
+    # Database settings
+    DATABASE_URL: str | None = os.getenv("SQLALCHEMY_DATABASE_URL")
+
     # JWT settings
     JWT_SECRET_KEY: str | None = os.getenv("JWT_SECRET_KEY")
     ALGORITHM: str = "HS256"
