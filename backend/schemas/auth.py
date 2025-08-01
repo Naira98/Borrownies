@@ -1,9 +1,7 @@
-# from typing import List, Optional
-from datetime import datetime
 from decimal import Decimal
 from typing import Literal
 
-from models.user import UserRole, UserStatus
+from models.user import UserRole
 from pydantic import BaseModel, ConfigDict, EmailStr
 
 
@@ -15,19 +13,14 @@ class LoginRequest(UserBase):
     password: str
 
 
-class UserResponse(UserBase):
+class LoginResponse(UserBase):
     id: int
     first_name: str
     last_name: str
-    national_id: str
     phone_number: str
     wallet: Decimal
-    status: UserStatus
     role: UserRole
     interests: str | None
-    created_date: datetime
-    reset_token: str | None = None
-    reset_token_expires_at: datetime | None = None
 
     model_config = ConfigDict(from_attributes=True, use_enum_values=True)
 
@@ -43,10 +36,6 @@ class TokenData(BaseModel):
     id: int
     role: str
 
-
-class LoginResponse(BaseModel):
-    access_token: Token
-    user: UserResponse
 
 
 class ForgetPasswordRequest(UserBase):

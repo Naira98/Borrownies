@@ -68,6 +68,7 @@ class User(Base):
     purchase_order_books: Mapped[list[PurchaseOrderBook]] = relationship(  # type: ignore # noqa: F821
         back_populates="user"
     )
+    sessions: Mapped[list[Session]] = relationship(back_populates="user")  # type: ignore # noqa: F821
 
     def __repr__(self) -> str:
         return f"<User(id={self.id}, email={self.email}, role={self.role.value})>"

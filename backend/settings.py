@@ -8,15 +8,15 @@ class Settings(BaseSettings):
     VERSION: str = "1.0.0"
     APP_HOST: str = "http://localhost:5173"
 
-    # JWT settings
-    JWT_SECRET_KEY: str | None = os.getenv("JWT_SECRET_KEY")
-    ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+
+    # Session settings
+    SESSION_EXPIRE_MINUTES: int = 60 * 24 * 30 * 6  # 6 months
 
     # Forget password settings
     FORGET_PASSWORD_SECRET_KEY: str | None = os.getenv("FORGET_PASSWORD_SECRET_KEY")
     RESET_PASSWORD_TOKEN_EXPIRATION_MINUTES: int = 10
     FORGET_PASSWORD_URL: str = "/forget-password"
+    ALGORITHM: str = "HS256"
 
     # Email Configuration
     MAIL_USERNAME: str | None = os.getenv("MAIL_USERNAME")
