@@ -1,0 +1,102 @@
+[
+  {
+    "quantity": 1,
+    "user_id": 2,
+    "book_details_id": 15
+  },
+  {
+    "quantity": 2,
+    "user_id": 4,
+    "book_details_id": 3
+  },
+  {
+    "quantity": 1,
+    "user_id": 3,
+    "book_details_id": 52
+  },
+  {
+    "quantity": 3,
+    "user_id": 2,
+    "book_details_id": 61
+  },
+  {
+    "quantity": 1,
+    "user_id": 3,
+    "book_details_id": 10
+  },
+  {
+    "quantity": 1,
+    "user_id": 4,
+    "book_details_id": 27
+  },
+  {
+    "quantity": 5,
+    "user_id": 2,
+    "book_details_id": 44
+  },
+  {
+    "quantity": 2,
+    "user_id": 3,
+    "book_details_id": 71
+  },
+  {
+    "quantity": 1,
+    "user_id": 4,
+    "book_details_id": 6
+  },
+  {
+    "quantity": 4,
+    "user_id": 2,
+    "book_details_id": 38
+  },
+  {
+    "quantity": 1,
+    "user_id": 3,
+    "book_details_id": 25
+  },
+  {
+    "quantity": 3,
+    "user_id": 4,
+    "book_details_id": 59
+  },
+  {
+    "quantity": 1,
+    "user_id": 2,
+    "book_details_id": 19
+  },
+  {
+    "quantity": 2,
+    "user_id": 3,
+    "book_details_id": 41
+  },
+  {
+    "quantity": 1,
+    "user_id": 4,
+    "book_details_id": 74
+  },
+  {
+    "quantity": 1,
+    "user_id": 2,
+    "book_details_id": 68
+  },
+  {
+    "quantity": 1,
+    "user_id": 3,
+    "book_details_id": 33
+  },
+  {
+    "quantity": 4,
+    "user_id": 4,
+    "book_details_id": 21
+  },
+  {
+    "quantity": 1,
+    "user_id": 2,
+    "book_details_id": 53
+  },
+  {
+    "quantity": 1,
+    "user_id": 3,
+    "book_details_id": 66
+  }
+]
