@@ -21,6 +21,7 @@ from scripts.dummy_data import (
     add_dummy_return_orders,
     add_dummy_purchase_orders,
     add_dummy_borrow_orders,
+    add_dummy_settings,
 )
 
 from settings import settings
@@ -49,6 +50,7 @@ async def seed_data():
         await add_dummy_return_orders(db)
         await add_dummy_purchase_orders(db)
         await add_dummy_borrow_orders(db)
+        await add_dummy_settings(db)
         await db.commit()
         print("\nAll data committed successfully!")
 

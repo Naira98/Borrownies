@@ -9,3 +9,4 @@ from .orders import add_dummy_orders
 from .return_orders import add_dummy_return_orders
 from .purchase_orders import add_dummy_purchase_orders
 from .borrow_orders import add_dummy_borrow_orders
+from .settings import add_dummy_settings

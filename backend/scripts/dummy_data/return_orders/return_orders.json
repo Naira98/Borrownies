@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "address": "123 Maple Street",
     "phone_number": "+1-555-123-4567",
     "pick_up_type": "SITE",
@@ -8,6 +9,7 @@
     "courier_id": 6
   },
   {
+    "id": 2,
     "address": "456 Oak Avenue",
     "phone_number": "+1-555-987-6543",
     "pick_up_type": "COURIER",
@@ -16,6 +18,7 @@
     "courier_id": 7
   },
   {
+    "id": 3,
     "address": "789 Pine Road",
     "phone_number": "+1-555-555-5555",
     "pick_up_type": "SITE",
@@ -24,6 +27,7 @@
     "courier_id": 6
   },
   {
+    "id": 4,
     "address": "101 Cherry Lane",
     "phone_number": "+1-555-444-3333",
     "pick_up_type": "COURIER",
@@ -32,6 +36,7 @@
     "courier_id": 7
   },
   {
+    "id": 5,
     "address": "202 Birch Court",
     "phone_number": "+1-555-111-2222",
     "pick_up_type": "SITE",

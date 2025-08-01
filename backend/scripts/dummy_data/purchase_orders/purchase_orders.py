@@ -16,10 +16,21 @@ async def add_dummy_purchase_orders(db: AsyncSession):
 
     purchase_orders_to_add = []
     for purchase_order_data in dummy_purchase_orders_data:
-        purchase_orders_to_add.append(PurchaseOrderBook(**purchase_order_data))
-        print(
-            f"  - Preparing to add purchase_order for user id : {purchase_order_data['user_id']}"
+        result = await db.execute(
+            select(PurchaseOrderBook).where(
+                PurchaseOrderBook.id == purchase_order_data["id"]
+            )
         )
+
+        if not result.scalars().first():
+            purchase_orders_to_add.append(PurchaseOrderBook(**purchase_order_data))
+            print(
+                f"  - Preparing to add purchase_order for user id : {purchase_order_data['user_id']}"
+            )
+        else:
+            print(
+                f"  - Purchase Order for user id: {purchase_order_data['user_id']} already exists, skipping."
+            )
 
     if purchase_orders_to_add:
         db.add_all(purchase_orders_to_add)

@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "borrowing_days": 14,
     "return_date": null,
     "borrow_book_problem": "NORMAL",
@@ -13,6 +14,7 @@
     "return_order_id": null
   },
   {
+    "id": 2,
     "borrowing_days": 21,
     "return_date": "2025-07-29T10:30:00Z",
     "borrow_book_problem": "LOST",
@@ -26,6 +28,7 @@
     "return_order_id": 2
   },
   {
+    "id": 3,
     "borrowing_days": 7,
     "return_date": null,
     "borrow_book_problem": "NORMAL",
@@ -39,6 +42,7 @@
     "return_order_id": null
   },
   {
+    "id": 4,
     "borrowing_days": 30,
     "return_date": null,
     "borrow_book_problem": "NORMAL",
@@ -52,6 +56,7 @@
     "return_order_id": null
   },
   {
+    "id": 5,
     "borrowing_days": 10,
     "return_date": "2025-07-31T14:15:00Z",
     "borrow_book_problem": "DAMAGED",
@@ -65,6 +70,7 @@
     "return_order_id": 4
   },
   {
+    "id": 6,
     "borrowing_days": 14,
     "return_date": null,
     "borrow_book_problem": "NORMAL",
@@ -78,6 +84,7 @@
     "return_order_id": null
   },
   {
+    "id": 7,
     "borrowing_days": 28,
     "return_date": null,
     "borrow_book_problem": "NORMAL",
@@ -91,6 +98,7 @@
     "return_order_id": null
   },
   {
+    "id": 8,
     "borrowing_days": 9,
     "return_date": "2025-08-01T09:00:00Z",
     "borrow_book_problem": "NORMAL",
@@ -104,6 +112,7 @@
     "return_order_id": 1
   },
   {
+    "id": 9,
     "borrowing_days": 18,
     "return_date": null,
     "borrow_book_problem": "NORMAL",
@@ -117,6 +126,7 @@
     "return_order_id": null
   },
   {
+    "id": 10,
     "borrowing_days": 25,
     "return_date": "2025-07-28T16:00:00Z",
     "borrow_book_problem": "NORMAL",
@@ -130,6 +140,7 @@
     "return_order_id": 5
   },
   {
+    "id": 11,
     "borrowing_days": 12,
     "return_date": null,
     "borrow_book_problem": "NORMAL",
@@ -143,6 +154,7 @@
     "return_order_id": null
   },
   {
+    "id": 12,
     "borrowing_days": 15,
     "return_date": null,
     "borrow_book_problem": "NORMAL",
@@ -156,6 +168,7 @@
     "return_order_id": null
   },
   {
+    "id": 13,
     "borrowing_days": 20,
     "return_date": "2025-07-25T11:00:00Z",
     "borrow_book_problem": "DAMAGED",
@@ -169,6 +182,7 @@
     "return_order_id": 3
   },
   {
+    "id": 14,
     "borrowing_days": 24,
     "return_date": null,
     "borrow_book_problem": "NORMAL",
@@ -182,6 +196,7 @@
     "return_order_id": null
   },
   {
+    "id": 15,
     "borrowing_days": 17,
     "return_date": null,
     "borrow_book_problem": "NORMAL",
@@ -195,6 +210,7 @@
     "return_order_id": null
   },
   {
+    "id": 16,
     "borrowing_days": 26,
     "return_date": "2025-07-27T18:45:00Z",
     "borrow_book_problem": "LOST",
@@ -208,6 +224,7 @@
     "return_order_id": 2
   },
   {
+    "id": 17,
     "borrowing_days": 8,
     "return_date": null,
     "borrow_book_problem": "NORMAL",
@@ -221,6 +238,7 @@
     "return_order_id": null
   },
   {
+    "id": 18,
     "borrowing_days": 13,
     "return_date": null,
     "borrow_book_problem": "NORMAL",
@@ -234,6 +252,7 @@
     "return_order_id": null
   },
   {
+    "id": 19,
     "borrowing_days": 22,
     "return_date": null,
     "borrow_book_problem": "NORMAL",
@@ -247,6 +266,7 @@
     "return_order_id": null
   },
   {
+    "id": 20,
     "borrowing_days": 20,
     "return_date": null,
     "borrow_book_problem": "NORMAL",

@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from sqlalchemy import select
 
 from models.order import BorrowOrderBook
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -16,15 +17,21 @@ async def add_dummy_borrow_orders(db: AsyncSession):
 
     borrow_orders_to_add = []
     for borrow_order_to_add in dummy_borrow_orders_data:
-        # return_date expects a datetime object, convert from ISO format to Python datetime
-        if isinstance(borrow_order_to_add["return_date"], str):
-            borrow_order_to_add["return_date"] = datetime.strptime(
-                borrow_order_to_add["return_date"], "%Y-%m-%dT%H:%M:%SZ"
+        result = await db.execute(
+            select(BorrowOrderBook).where(
+                BorrowOrderBook.id == borrow_order_to_add["id"]
             )
-        borrow_orders_to_add.append(BorrowOrderBook(**borrow_order_to_add))
-        print(
-            f"  - Preparing to add borrow Order for user id: {borrow_order_to_add['user_id']}"
         )
+
+        if not result.scalars().first():
+            borrow_orders_to_add.append(BorrowOrderBook(**borrow_order_to_add))
+            print(
+                f"  - Preparing to add borrow_order for user id : {borrow_order_to_add['user_id']}"
+            )
+        else:
+            print(
+                f"  - Borrow Order for user id: {borrow_order_to_add['user_id']} already exists, skipping."
+            )
 
     db.add_all(borrow_orders_to_add)
     print(f"  - Adding {len(borrow_orders_to_add)} new borrow_orders to the session.")
