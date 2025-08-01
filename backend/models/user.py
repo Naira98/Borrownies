@@ -44,30 +44,32 @@ class User(Base):
     reset_token_expires_at: Mapped[datetime | None] = mapped_column(
         DateTime, nullable=True
     )
+    
+    
 
-    # Relationships
-    cart: Mapped[list[Cart]] = relationship(back_populates="user")  # type: ignore  # noqa: F821
-    orders: Mapped[list[Order]] = relationship(back_populates="user")  # type: ignore  # noqa: F821
+    # # Relationships
+    # cart: Mapped[list[Cart]] = relationship(back_populates="user")  # type: ignore  # noqa: F821
+    # orders: Mapped[list[Order]] = relationship(back_populates="user")  # type: ignore  # noqa: F821
 
-    # Explicitly specify foreign_keys for return_orders relationship
-    return_orders: Mapped[list[ReturnOrder]] = relationship(  # type: ignore # noqa: F821
-        back_populates="user", foreign_keys="[ReturnOrder.user_id]"
-    )
+    # # Explicitly specify foreign_keys for return_orders relationship
+    # return_orders: Mapped[list[ReturnOrder]] = relationship(  # type: ignore # noqa: F821
+    #     back_populates="user", foreign_keys="[ReturnOrder.user_id]"
+    # )
 
-    # Explicitly specify foreign_keys for courier_orders relationship
-    courier_orders: Mapped[list[ReturnOrder]] = relationship(  # type: ignore # noqa: F821
-        back_populates="courier", foreign_keys="[ReturnOrder.courier_id]"
-    )
-    notifications: Mapped[list[Notification]] = relationship(  # type: ignore # noqa: F821
-        back_populates="user"
-    )
+    # # Explicitly specify foreign_keys for courier_orders relationship
+    # courier_orders: Mapped[list[ReturnOrder]] = relationship(  # type: ignore # noqa: F821
+    #     back_populates="courier", foreign_keys="[ReturnOrder.courier_id]"
+    # )
+    # notifications: Mapped[list[Notification]] = relationship(  # type: ignore # noqa: F821
+    #     back_populates="user"
+    # )
 
-    borrow_order_books: Mapped[list[BorrowOrderBook]] = relationship(  # type: ignore # noqa: F821
-        back_populates="user"
-    )
-    purchase_order_books: Mapped[list[PurchaseOrderBook]] = relationship(  # type: ignore # noqa: F821
-        back_populates="user"
-    )
+    # borrow_order_books: Mapped[list[BorrowOrderBook]] = relationship(  # type: ignore # noqa: F821
+    #     back_populates="user"
+    # )
+    # purchase_order_books: Mapped[list[PurchaseOrderBook]] = relationship(  # type: ignore # noqa: F821
+    #     back_populates="user"
+    # )
 
     def __repr__(self) -> str:
         return f"<User(id={self.id}, email={self.email}, role={self.role.value})>"

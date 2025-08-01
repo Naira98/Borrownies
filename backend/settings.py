@@ -28,5 +28,7 @@ class Settings(BaseSettings):
     MAIL_SSL_TLS: bool = os.getenv("MAIL_SSL_TLS", "False").lower() == "true"
     USE_CREDENTIALS: bool = os.getenv("USE_CREDENTIALS", "True").lower() == "true"
 
-
+    VARIFICATION_EMAIL_SUBJECT: str = "Verify your email"
+    VARIFICATION_EMAIL_TEMPLATE: str = "verify_email_template.html"
+    VRIFICATION_EMAIL_URL: str = "/verify-email"
 settings = Settings()

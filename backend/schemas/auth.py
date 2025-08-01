@@ -42,11 +42,18 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     id: int
     role: str
+class RegisterRequest(UserBase):
+    first_name: str
+    last_name: str
+    password: str
+    phone_number: str
+    national_id: str
 
+class verifyEmailRequest(BaseModel):
+    token: str
 
 class LoginResponse(Token):
     user: UserResponse
-
 
 class ForgetPasswordRequest(UserBase):
     pass

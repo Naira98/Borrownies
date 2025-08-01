@@ -10,7 +10,7 @@ from core.auth import (
 )
 from db.database import get_db
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
-from models.user import User, UserStatus
+from models.user import User, UserStatus,UserRole
 from schemas.auth import (
     ForgetPasswordRequest,
     LoginRequest,
@@ -19,6 +19,8 @@ from schemas.auth import (
     ResetForegetPassword,
     SuccessMessage,
     TokenData,
+    RegisterRequest,
+    verifyEmailRequest
 )
 from settings import settings
 from sqlalchemy import select
@@ -26,16 +28,43 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 # from models.user import UserRole
 
+auth_router = APIRouter()
 
-auth_router = APIRouter(
-    prefix="/auth",
-    tags=["Auth"],
-)
 
 
 @auth_router.post("/register")
-async def register():
-    return {"message": "Register endpoint"}
+async def register(user_data: RegisterRequest, db: AsyncSession = Depends(get_db)):
+    # Check if user exists
+    result = await db.execute(select(User).where(User.email == user_data.email))
+    existing_user = result.scalars().first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already exists")
+
+    hashed_password = get_password_hash(user_data.password)
+    new_user = User(
+        first_name=user_data.first_name,
+        last_name=user_data.last_name,
+        email=user_data.email,
+        password=hashed_password,
+        status=UserStatus.DEACTIVATED,
+        phone_number=user_data.phone_number,
+        national_id=user_data.national_id,
+        role=UserRole.CLIENT,  # Default role
+    )
+
+    db.add(new_user)
+    await db.commit()
+    await db.refresh(new_user)
+
+
+    # Create verification token
+    token = create_access_token(TokenData(id=new_user.id, role=new_user.role.value))
+
+    # Send verification email
+    await send_email(new_user.email, token)
+
+    return {"message": "Registration successful. Please check your email to verify your account."}
+
 
 
 @auth_router.post("/login", response_model=LoginResponse)
@@ -205,4 +234,44 @@ async def reset_password(rfp: ResetForegetPassword, db: AsyncSession = Depends(g
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"An error occurred while resetting the password: {str(e)}",
+        )
+@auth_router.post("/verify-email", response_model=SuccessMessage)
+async def verify_email(
+    request: verifyEmailRequest,
+    db: AsyncSession = Depends(get_db),
+):
+    try:
+        info = decode_token_generic(
+            request.token,
+            settings.JWT_SECRET_KEY,
+            settings.ALGORITHM,
+            "JWT_SECRET_KEY",
+        )
+        if info is None:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid verification token"
+            )
+
+        result = await db.execute(select(User).where(User.id == info.id))
+        user = result.scalars().first()
+
+        if user is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+            )
+
+        user.status = UserStatus.ACTIVATED.value
+        db.add(user)
+        await db.commit()
+
+        return {
+            "success": True,
+            "status_code": status.HTTP_200_OK,
+            "message": "Email verified successfully!",
+        }
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"An error occurred while verifying the email: {str(e)}",
         )

@@ -87,7 +87,7 @@ class PurchaseOrderBook(Base):
     book_details: Mapped[BookDetails] = relationship(  # type: ignore # noqa: F821
         back_populates="purchase_order_books_details"
     )
-    order: Mapped[Order] = relationship(back_populates="purchase_order_books_details")
+    order: Mapped["Order"] = relationship(back_populates="purchase_order_books_details")
     user: Mapped[User] = relationship(back_populates="purchase_order_books")  # type: ignore  # noqa: F821
 
 
