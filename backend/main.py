@@ -4,7 +4,6 @@ from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
 from fastapi import APIRouter, FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from routers.auth import auth_router
 from settings import settings
 from routers import book
@@ -24,14 +23,6 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title=settings.APP_NAME, version=settings.VERSION, lifespan=lifespan)
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[settings.APP_HOST],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 
 api_router = APIRouter(prefix="/api")

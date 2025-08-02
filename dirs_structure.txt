@@ -1,4 +1,4 @@
-Borrownies
+Book Nook
 │
 ├── backend/
 │   ├── main.py             # Main FastAPI application entry point; includes all API routers.

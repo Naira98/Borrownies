@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from typing import Literal, Optional
 
 from fastapi import BackgroundTasks
@@ -6,31 +6,7 @@ from fastapi_mail import ConnectionConfig, FastMail, MessageSchema, MessageType
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import SecretStr
-from schemas.auth import TokenData
 from settings import settings
-
-
-def create_access_token(
-    data: TokenData, expires_delta: Optional[timedelta] = None
-) -> str:
-    to_encode = data.model_dump()  # Converts the BaseModel to a dict
-
-    if expires_delta:
-        expire = datetime.now(timezone.utc) + expires_delta
-    else:
-        expire = datetime.now(timezone.utc) + timedelta(
-            minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
-        )
-
-    to_encode["exp"] = expire
-
-    if settings.JWT_SECRET_KEY is None:
-        raise ValueError("JWT_SECRET_KEY is not set")
-
-    encoded_jwt = jwt.encode(
-        to_encode, settings.JWT_SECRET_KEY, algorithm=settings.ALGORITHM
-    )
-    return encoded_jwt
 
 
 # Password Hashing
@@ -45,6 +21,7 @@ def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
 
 
+# Token generation and decoding
 def create_token_generic(
     email: str,
     secret_key: Optional[str],
@@ -93,6 +70,7 @@ def decode_token_generic(
         return None
 
 
+# Sending mails
 async def send_email(
     user_email: str,
     html_body: str,
@@ -110,7 +88,6 @@ async def send_email(
             "Email configuration is not set properly. Check MAIL_USERNAME and MAIL_PASSWORD."
         )
 
-    # --- FastAPI-Mail Configuration ---
     conf = ConnectionConfig(
         MAIL_USERNAME=settings.MAIL_USERNAME,
         MAIL_PASSWORD=SecretStr(settings.MAIL_PASSWORD),
