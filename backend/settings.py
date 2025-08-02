@@ -6,8 +6,7 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     APP_NAME: str = "Book Nook API"
     VERSION: str = "1.0.0"
-    APP_HOST: str = "http://localhost:5173"
-
+    APP_HOST: str = "http://localhost"
 
     # Session settings
     SESSION_EXPIRE_MINUTES: int = 60 * 24 * 30 * 6  # 6 months
@@ -15,7 +14,7 @@ class Settings(BaseSettings):
     # Forget password settings
     FORGET_PASSWORD_SECRET_KEY: str | None = os.getenv("FORGET_PASSWORD_SECRET_KEY")
     RESET_PASSWORD_TOKEN_EXPIRATION_MINUTES: int = 10
-    FORGET_PASSWORD_URL: str = "/forget-password"
+    RESET_PASSWORD_URL: str = "/reset-password"
     ALGORITHM: str = "HS256"
 
     # Email Configuration

@@ -2,6 +2,8 @@ import { useState } from "react";
 import clsx from "clsx";
 import type { TextInputTypes } from "../../../types/shared/formInputs";
 import { Field } from "react-final-form";
+import eye_icon from "../../../assets/eye.svg";
+import eye_off_icon from "../../../assets/eye-off.svg";
 
 export default function TextInput({
   type = "text",
@@ -37,14 +39,14 @@ export default function TextInput({
                 {!isPassword ? (
                   <img
                     onClick={() => changeIsPassword(!isPassword)}
-                    src="src/assets/eye.svg"
+                    src={eye_icon}
                     alt="eye icon"
                     className="w-4"
                   />
                 ) : (
                   <img
                     onClick={() => changeIsPassword(!isPassword)}
-                    src="src/assets/eye-off.svg"
+                    src={eye_off_icon}
                     alt="invisible eye icon"
                     className="w-4"
                   />

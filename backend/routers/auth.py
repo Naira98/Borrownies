@@ -130,7 +130,7 @@ async def forget_password(
 
     await db.commit()
 
-    reset_link = f"{settings.APP_HOST}{settings.FORGET_PASSWORD_URL}/{reset_token}"
+    reset_link = f"{settings.APP_HOST}{settings.RESET_PASSWORD_URL}/{reset_token}"
 
     html_body = f"""
         <html>

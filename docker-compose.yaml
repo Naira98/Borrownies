@@ -24,6 +24,8 @@ services:
     build: ./frontend
     volumes:
       - ./frontend:/app
+    env_file:
+      - ./frontend/.env.docker
 
   nginx:
     image: nginx:alpine

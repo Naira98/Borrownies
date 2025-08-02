@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
+import logo from "../../assets/dark-bg-logo.svg";
+
 export default function AuthLayout({
   children,
 
@@ -15,7 +17,8 @@ export default function AuthLayout({
     <div className="bg-background relative flex h-screen w-screen flex-col items-center justify-start gap-4 p-4 md:justify-center">
       <Link to="/login">
         <img
-          src="src/assets/dark-bg-logo.svg"
+          src={logo}
+          alt="logo"
           className="relative top-0 left-0 mr-auto w-22 sm:block md:absolute md:top-4 md:left-4 md:w-28 lg:w-30"
         />
       </Link>
