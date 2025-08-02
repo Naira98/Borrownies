@@ -7,7 +7,7 @@ export const useGetMe = () => {
     isPending,
     error,
   } = useQuery({
-    queryKey: ["user"],
+    queryKey: ["me"],
     queryFn: async () => {
       return await apiReq("GET", "/auth/me");
     },

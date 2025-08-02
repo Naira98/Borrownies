@@ -1,8 +1,9 @@
 from __future__ import annotations
-
+from .settings import PromoCode
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
+
 
 from db.base import Base
 from sqlalchemy import DateTime, ForeignKey, Index, Numeric
@@ -91,7 +92,6 @@ class PurchaseOrderBook(Base):
     user: Mapped[User] = relationship(back_populates="purchase_order_books")  # type: ignore  # noqa: F821
 
 
-
 class Order(Base):
     __tablename__ = "orders"
     __table_args__ = (Index("ix_user_promo_code", "user_id", "promo_code_id"),)
@@ -147,11 +147,9 @@ class ReturnOrder(Base):
     )
     # Explicitly specify foreign_keys for the 'user' relationship
     user: Mapped[User] = relationship(  # noqa: F821 # type: ignore
-        back_populates="return_orders",
-        foreign_keys=[user_id]
+        back_populates="return_orders", foreign_keys=[user_id]
     )
     # Explicitly specify foreign_keys for the 'courier' relationship
     courier: Mapped[User] = relationship(  # noqa: F821 # type: ignore
-        back_populates="courier_orders",
-        foreign_keys=[courier_id]
+        back_populates="courier_orders", foreign_keys=[courier_id]
     )

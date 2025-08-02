@@ -12,7 +12,7 @@ export function useLogout() {
       return await apiReq("POST", "/auth/logout");
     },
     onSuccess: () => {
-      queryClient.setQueryData(["user"], null);
+      queryClient.setQueryData(["me"], null);
       navigate("/login", { replace: true });
     },
     onError: (err) => {

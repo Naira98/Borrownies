@@ -1,8 +1,10 @@
 from __future__ import annotations
-
+from .order import Order
+from .cart import Cart
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
+from .notification import Notification
 
 from db.base import Base
 from sqlalchemy import DateTime, Numeric, String
@@ -46,7 +48,9 @@ class User(Base):
     )
 
     # Relationships
-    cart: Mapped[list[Cart]] = relationship(back_populates="user")  # type: ignore  # noqa: F821
+    cart: Mapped[list[Cart]] = relationship(  # type: ignore  # noqa: F821
+        back_populates="user", foreign_keys="[Cart.user_id]"
+    )
     orders: Mapped[list[Order]] = relationship(back_populates="user")  # type: ignore  # noqa: F821
 
     # Explicitly specify foreign_keys for return_orders relationship

@@ -14,7 +14,7 @@ export function useLogin() {
       return await apiReq("POST", "/auth/login", values);
     },
     onSuccess: (user: IUser) => {
-      queryClient.setQueryData(["user"], user);
+      queryClient.setQueryData(["me"], user);
       navigate("/", { replace: true });
     },
     onError: (err) => {

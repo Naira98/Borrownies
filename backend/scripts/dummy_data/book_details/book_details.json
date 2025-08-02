@@ -1,0 +1,372 @@
+[
+  {
+    "available_stock": 15,
+    "status": "BORROW",
+    "book_id": 1
+  },
+  {
+    "available_stock": 8,
+    "status": "PURCHASE",
+    "book_id": 1
+  },
+  {
+    "available_stock": 10,
+    "status": "BORROW",
+    "book_id": 2
+  },
+  {
+    "available_stock": 5,
+    "status": "PURCHASE",
+    "book_id": 3
+  },
+  {
+    "available_stock": 18,
+    "status": "BORROW",
+    "book_id": 4
+  },
+  {
+    "available_stock": 7,
+    "status": "PURCHASE",
+    "book_id": 4
+  },
+  {
+    "available_stock": 20,
+    "status": "PURCHASE",
+    "book_id": 5
+  },
+  {
+    "available_stock": 12,
+    "status": "BORROW",
+    "book_id": 6
+  },
+  {
+    "available_stock": 3,
+    "status": "PURCHASE",
+    "book_id": 7
+  },
+  {
+    "available_stock": 1,
+    "status": "BORROW",
+    "book_id": 7
+  },
+  {
+    "available_stock": 9,
+    "status": "BORROW",
+    "book_id": 8
+  },
+  {
+    "available_stock": 14,
+    "status": "PURCHASE",
+    "book_id": 9
+  },
+  {
+    "available_stock": 11,
+    "status": "BORROW",
+    "book_id": 9
+  },
+  {
+    "available_stock": 6,
+    "status": "PURCHASE",
+    "book_id": 10
+  },
+  {
+    "available_stock": 17,
+    "status": "BORROW",
+    "book_id": 11
+  },
+  {
+    "available_stock": 4,
+    "status": "PURCHASE",
+    "book_id": 12
+  },
+  {
+    "available_stock": 19,
+    "status": "BORROW",
+    "book_id": 12
+  },
+  {
+    "available_stock": 2,
+    "status": "PURCHASE",
+    "book_id": 13
+  },
+  {
+    "available_stock": 13,
+    "status": "BORROW",
+    "book_id": 14
+  },
+  {
+    "available_stock": 16,
+    "status": "PURCHASE",
+    "book_id": 14
+  },
+  {
+    "available_stock": 7,
+    "status": "BORROW",
+    "book_id": 15
+  },
+  {
+    "available_stock": 10,
+    "status": "PURCHASE",
+    "book_id": 15
+  },
+  {
+    "available_stock": 8,
+    "status": "BORROW",
+    "book_id": 16
+  },
+  {
+    "available_stock": 5,
+    "status": "PURCHASE",
+    "book_id": 17
+  },
+  {
+    "available_stock": 15,
+    "status": "BORROW",
+    "book_id": 17
+  },
+  {
+    "available_stock": 12,
+    "status": "PURCHASE",
+    "book_id": 18
+  },
+  {
+    "available_stock": 1,
+    "status": "BORROW",
+    "book_id": 19
+  },
+  {
+    "available_stock": 19,
+    "status": "PURCHASE",
+    "book_id": 19
+  },
+  {
+    "available_stock": 4,
+    "status": "BORROW",
+    "book_id": 20
+  },
+  {
+    "available_stock": 11,
+    "status": "PURCHASE",
+    "book_id": 21
+  },
+  {
+    "available_stock": 18,
+    "status": "BORROW",
+    "book_id": 21
+  },
+  {
+    "available_stock": 9,
+    "status": "BORROW",
+    "book_id": 22
+  },
+  {
+    "available_stock": 3,
+    "status": "PURCHASE",
+    "book_id": 23
+  },
+  {
+    "available_stock": 14,
+    "status": "BORROW",
+    "book_id": 23
+  },
+  {
+    "available_stock": 6,
+    "status": "PURCHASE",
+    "book_id": 24
+  },
+  {
+    "available_stock": 16,
+    "status": "BORROW",
+    "book_id": 25
+  },
+  {
+    "available_stock": 2,
+    "status": "PURCHASE",
+    "book_id": 25
+  },
+  {
+    "available_stock": 17,
+    "status": "PURCHASE",
+    "book_id": 26
+  },
+  {
+    "available_stock": 8,
+    "status": "BORROW",
+    "book_id": 27
+  },
+  {
+    "available_stock": 20,
+    "status": "PURCHASE",
+    "book_id": 27
+  },
+  {
+    "available_stock": 5,
+    "status": "BORROW",
+    "book_id": 28
+  },
+  {
+    "available_stock": 10,
+    "status": "PURCHASE",
+    "book_id": 29
+  },
+  {
+    "available_stock": 15,
+    "status": "BORROW",
+    "book_id": 29
+  },
+  {
+    "available_stock": 12,
+    "status": "BORROW",
+    "book_id": 30
+  },
+  {
+    "available_stock": 1,
+    "status": "PURCHASE",
+    "book_id": 31
+  },
+  {
+    "available_stock": 19,
+    "status": "BORROW",
+    "book_id": 31
+  },
+  {
+    "available_stock": 4,
+    "status": "PURCHASE",
+    "book_id": 32
+  },
+  {
+    "available_stock": 11,
+    "status": "BORROW",
+    "book_id": 33
+  },
+  {
+    "available_stock": 18,
+    "status": "PURCHASE",
+    "book_id": 33
+  },
+  {
+    "available_stock": 9,
+    "status": "BORROW",
+    "book_id": 34
+  },
+  {
+    "available_stock": 3,
+    "status": "PURCHASE",
+    "book_id": 35
+  },
+  {
+    "available_stock": 14,
+    "status": "BORROW",
+    "book_id": 36
+  },
+  {
+    "available_stock": 6,
+    "status": "PURCHASE",
+    "book_id": 36
+  },
+  {
+    "available_stock": 16,
+    "status": "PURCHASE",
+    "book_id": 37
+  },
+  {
+    "available_stock": 2,
+    "status": "BORROW",
+    "book_id": 38
+  },
+  {
+    "available_stock": 17,
+    "status": "PURCHASE",
+    "book_id": 38
+  },
+  {
+    "available_stock": 8,
+    "status": "BORROW",
+    "book_id": 39
+  },
+  {
+    "available_stock": 20,
+    "status": "PURCHASE",
+    "book_id": 39
+  },
+  {
+    "available_stock": 5,
+    "status": "BORROW",
+    "book_id": 40
+  },
+  {
+    "available_stock": 10,
+    "status": "PURCHASE",
+    "book_id": 41
+  },
+  {
+    "available_stock": 15,
+    "status": "BORROW",
+    "book_id": 41
+  },
+  {
+    "available_stock": 12,
+    "status": "BORROW",
+    "book_id": 42
+  },
+  {
+    "available_stock": 1,
+    "status": "PURCHASE",
+    "book_id": 43
+  },
+  {
+    "available_stock": 19,
+    "status": "BORROW",
+    "book_id": 43
+  },
+  {
+    "available_stock": 4,
+    "status": "PURCHASE",
+    "book_id": 44
+  },
+  {
+    "available_stock": 11,
+    "status": "BORROW",
+    "book_id": 45
+  },
+  {
+    "available_stock": 18,
+    "status": "PURCHASE",
+    "book_id": 45
+  },
+  {
+    "available_stock": 9,
+    "status": "BORROW",
+    "book_id": 46
+  },
+  {
+    "available_stock": 3,
+    "status": "PURCHASE",
+    "book_id": 47
+  },
+  {
+    "available_stock": 14,
+    "status": "BORROW",
+    "book_id": 47
+  },
+  {
+    "available_stock": 6,
+    "status": "PURCHASE",
+    "book_id": 48
+  },
+  {
+    "available_stock": 16,
+    "status": "PURCHASE",
+    "book_id": 49
+  },
+  {
+    "available_stock": 2,
+    "status": "BORROW",
+    "book_id": 50
+  },
+  {
+    "available_stock": 17,
+    "status": "PURCHASE",
+    "book_id": 50
+  }
+]

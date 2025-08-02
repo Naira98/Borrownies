@@ -8,6 +8,9 @@ class Settings(BaseSettings):
     VERSION: str = "1.0.0"
     APP_HOST: str = "http://localhost"
 
+    # Database settings
+    DATABASE_URL: str | None = os.getenv("SQLALCHEMY_DATABASE_URL")
+
     # Session settings
     SESSION_EXPIRE_MINUTES: int = 60 * 24 * 30 * 6  # 6 months
 
